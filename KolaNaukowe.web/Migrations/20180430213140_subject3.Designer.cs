@@ -11,9 +11,10 @@ using System;
 namespace KolaNaukowe.web.Migrations
 {
     [DbContext(typeof(KolaNaukoweDbContext))]
-    partial class KolaNaukoweDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180430213140_subject3")]
+    partial class subject3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

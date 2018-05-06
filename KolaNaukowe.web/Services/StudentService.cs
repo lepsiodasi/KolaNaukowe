@@ -26,7 +26,7 @@ namespace KolaNaukowe.web.Services
 
         public StudentDto Get(int id)
         {
-            var student = _genericRepository.Get(id);
+            var student = _genericRepository.Get(s => s.Id.Equals(id));
             return _mapper.Map<Student, StudentDto>(student);
         }
 

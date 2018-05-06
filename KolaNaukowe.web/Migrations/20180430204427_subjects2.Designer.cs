@@ -11,9 +11,10 @@ using System;
 namespace KolaNaukowe.web.Migrations
 {
     [DbContext(typeof(KolaNaukoweDbContext))]
-    partial class KolaNaukoweDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180430204427_subjects2")]
+    partial class subjects2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,11 +119,11 @@ namespace KolaNaukowe.web.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int?>("researchGroupsId");
+                    b.Property<int?>("researchGroupId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("researchGroupsId");
+                    b.HasIndex("researchGroupId");
 
                     b.ToTable("Subject");
                 });
@@ -244,9 +245,9 @@ namespace KolaNaukowe.web.Migrations
 
             modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
                 {
-                    b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "researchGroups")
+                    b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "researchGroup")
                         .WithMany("Subjects")
-                        .HasForeignKey("researchGroupsId");
+                        .HasForeignKey("researchGroupId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

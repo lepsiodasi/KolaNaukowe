@@ -5,6 +5,7 @@ using KolaNaukowe.web.Models;
 using KolaNaukowe.web.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace KolaNaukowe.web.Services
 {
@@ -30,20 +31,38 @@ namespace KolaNaukowe.web.Services
        
         public StudentResearchGroupDto Get(int id)
         {
-            var studentResearchGroup = _genericRepository.Get(id);
+            var studentResearchGroup = _genericRepository.Get(g => g.Id.Equals(id), g => g.Subjects);
             return _mapper.Map<StudentResearchGroup, StudentResearchGroupDto>(studentResearchGroup);
         }
 
         public IEnumerable<StudentResearchGroupDto> GetAll()
         {
-            var studentResearchGroups = _genericRepository.GetAll().OrderBy(c => c.Name);                   
+            var studentResearchGroups = _genericRepository.GetAll(g => g.Subjects)
+                                                          .OrderBy(c => c.Name);
+                                                          
+                                                                            
             return _mapper.Map<IEnumerable<StudentResearchGroup>, IEnumerable<StudentResearchGroupDto>>(studentResearchGroups);                      
         }
 
-        public IEnumerable<StudentResearchGroupDto> Filter(string searchString)
+        public IEnumerable<string> GetAllSubjects()
         {
-            var studentResearchGroups = _genericRepository.GetAll().Where(s => s.Name.Contains(searchString, System.StringComparison.CurrentCultureIgnoreCase));
-            return _mapper.Map<IEnumerable<StudentResearchGroup>, IEnumerable<StudentResearchGroupDto>>(studentResearchGroups);
+            var subjects = from l in _genericRepository.GetAll()
+                           from s in l.Subjects
+                           select s.Name;
+            return subjects.ToList();
+        }
+
+
+        public IEnumerable<StudentResearchGroupDto> FilterByName(IEnumerable<StudentResearchGroupDto> source, string searchString)
+        {
+            var filteringResult = source.Where(s => s.Name.Contains(searchString, System.StringComparison.CurrentCultureIgnoreCase));
+            return filteringResult;
+        }
+
+        public IEnumerable<StudentResearchGroupDto> FilterBySubject(IEnumerable<StudentResearchGroupDto> source, string searchString)
+        {
+            var filteringResult = source.Where(s => s.Subjects.Any(u => u.Name == searchString));
+            return filteringResult;
         }
 
         public void Remove(int id)

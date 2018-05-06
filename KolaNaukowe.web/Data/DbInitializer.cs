@@ -74,10 +74,14 @@ namespace KolaNaukowe.web.Data
 
             var studentGroups = new StudentResearchGroup[]
             {
-            new StudentResearchGroup{Name="EKA.NET",CreatedAt=DateTime.UtcNow,Department = "Elektroniki", OwnerId = leaderID},
-            new StudentResearchGroup{Name="PIAST.NET",CreatedAt=DateTime.UtcNow,Department = "Informatyki i Zarzadzania", OwnerId = leaderID},
-            new StudentResearchGroup{Name="NEW.NET",CreatedAt=DateTime.UtcNow, Department = "Mechaniczny",OwnerId = leaderID},
-            new StudentResearchGroup{Name="COS.NET",CreatedAt=DateTime.UtcNow, Department = "Elektryczny", OwnerId = leaderID},
+            new StudentResearchGroup{Name="EKA.NET",CreatedAt=DateTime.UtcNow,Department = "Elektroniki",
+                OwnerId = leaderID, Subjects = new List<Subject>{ new Subject {Name = "C#" }, new Subject { Name = "Programowanie" } } },
+            new StudentResearchGroup{Name="PIAST.NET",CreatedAt=DateTime.UtcNow,Department = "Informatyki i Zarzadzania",
+                OwnerId = leaderID, Subjects = new List<Subject>{ new Subject {Name = "C#" }, new Subject { Name = ".NET" }}},
+            new StudentResearchGroup{Name="NEW.NET",CreatedAt=DateTime.UtcNow, Department = "Mechaniczny",
+                OwnerId = leaderID, Subjects = new List<Subject>{ new Subject {Name = "Projektowanie maszyn" } }},
+            new StudentResearchGroup{Name="COS.NET",CreatedAt=DateTime.UtcNow, Department = "Elektryczny",
+                OwnerId = leaderID, Subjects = new List<Subject>{new Subject {Name = "Elektronika" } }},
             };
 
             foreach (StudentResearchGroup s in studentGroups)

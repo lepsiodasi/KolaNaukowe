@@ -10,10 +10,12 @@ namespace KolaNaukowe.web.Services
     public interface IStudentResearchGroupService
     {
         IEnumerable<StudentResearchGroupDto> GetAll();
-        IEnumerable<StudentResearchGroupDto> Filter(string searchString);
+        IEnumerable<string> GetAllSubjects();
         StudentResearchGroupDto Get(int id);
         StudentResearchGroupDto Add(StudentResearchGroup newStudentResearchGroup);
         void Update(StudentResearchGroup item);
         void Remove(int id);
+        IEnumerable<StudentResearchGroupDto> FilterByName(IEnumerable<StudentResearchGroupDto> source, string searchString);
+        IEnumerable<StudentResearchGroupDto> FilterBySubject(IEnumerable<StudentResearchGroupDto> source, string searchString);
     }
 }

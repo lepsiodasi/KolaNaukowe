@@ -3,8 +3,10 @@ using KolaNaukowe.web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace KolaNaukowe.web.Repositories
 {
@@ -25,19 +27,37 @@ namespace KolaNaukowe.web.Repositories
             return item;
         }
 
-        public TEntity Get(int id)
+        public TEntity Get(Func<TEntity, bool> where, params Expression<Func<TEntity, object>>[] navigationProperties)
         {
-            return _context.Set<TEntity>().Find(id);
+            IQueryable<TEntity> dbQuery = _context.Set<TEntity>();
+            foreach (Expression<Func<TEntity, object>> navigationProperty in navigationProperties)
+            {
+                dbQuery = dbQuery.Include<TEntity, object>(navigationProperty);
+
+            }
+
+            var item  = dbQuery
+                    .AsNoTracking() 
+                    .FirstOrDefault(where); 
+            
+            return item;
         }
 
-        public IEnumerable<TEntity> GetAll()
+
+        public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] navigationProperties)
         {
-            return _context.Set<TEntity>().ToList();
+            IQueryable<TEntity> dbQuery = _context.Set<TEntity>();           
+            foreach (Expression<Func<TEntity, object>> navigationProperty in navigationProperties)
+            {
+                dbQuery = dbQuery.Include<TEntity, object>(navigationProperty);
+
+            }        
+            return dbQuery;
         }
 
         public void Remove(int id)
         {
-            var item = Get(id);
+            var item = _context.Set<TEntity>().Find(id);
             if(item != null)
             {
                 _context.Set<TEntity>().Remove(item);

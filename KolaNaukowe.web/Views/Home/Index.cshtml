@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KolaNaukowe.web.Dtos.StudentResearchGroupDto>
+﻿@model KolaNaukowe.web.Models.ResearchGroupViewModel
 
 @{
     ViewData["Title"] = "Kola Naukowe";
@@ -12,7 +12,10 @@
 
 <form asp-controller="Home" asp-action="Index" method="get">
     <p>
-        Nazwa: <input type="text" name="SearchString" />
+        <select asp-for="researchGroupSubject" asp-items="Model.subjects">
+        <option value="">Tematyka</option>
+                </select>
+        Nazwa: <input type="text" name="searchName" />
         <input type="submit" value="Wyszukaj" />
     </p>
 </form>
@@ -20,19 +23,22 @@
     <thead>
         <tr>           
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.researchGroups.ElementAt(0).Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
+                @Html.DisplayNameFor(model => model.researchGroups.ElementAt(0).CreatedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department)
+                @Html.DisplayNameFor(model => model.researchGroups.ElementAt(0).Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.researchGroups.ElementAt(0).Subjects)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.researchGroups)
         {
         <tr>          
             <td>
@@ -43,6 +49,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @foreach(var subject in item.Subjects){
+                    string sub = $"{subject.Name} ";
+                    @Html.DisplayFor(modelItem => sub)
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using KolaNaukowe.web.Services;
 using System.Linq;
 using KolaNaukowe.web.Extensions;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KolaNaukowe.web.Controllers
 {
@@ -20,15 +22,24 @@ namespace KolaNaukowe.web.Controllers
             _studentResearchGroupService = studentResearchGroupService;
         }
         
-        public IActionResult Index(string searchString)
+        public IActionResult Index(string searchName, string researchGroupSubject)
         {
             var model = _studentResearchGroupService.GetAll();
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchName))
             {
-                model = _studentResearchGroupService.Filter(searchString);
+                model = _studentResearchGroupService.FilterByName(model, searchName);
             }
-            return View(model.ToList());
+
+            if (!string.IsNullOrEmpty(researchGroupSubject))
+            {
+                model = _studentResearchGroupService.FilterBySubject(model, researchGroupSubject);
+            }
+            var researchGroupVM = new ResearchGroupViewModel();
+            researchGroupVM.subjects = new SelectList( _studentResearchGroupService.GetAllSubjects().Distinct().ToList());
+            researchGroupVM.researchGroups = model.ToList();
+
+            return View(researchGroupVM);
         }
 
         public IActionResult Details(int id)

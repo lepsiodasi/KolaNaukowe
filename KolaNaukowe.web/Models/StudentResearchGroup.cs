@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,9 @@ namespace KolaNaukowe.web.Models
         public string Department { get; set; }
         public IEnumerable<Student> Students { get; set; }
 
+        
+        public List<Subject> Subjects { get; set; }
+ 
         // user ID from AspNetUser table.
         public string OwnerId { get; set; }
 
