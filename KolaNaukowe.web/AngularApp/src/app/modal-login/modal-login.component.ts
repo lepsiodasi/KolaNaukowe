@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
+
 import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
@@ -8,7 +9,7 @@ import {MatTabsModule} from '@angular/material/tabs';
   styleUrls: ['./modal-login.component.css'],
 })
 export class ModalLoginComponent implements OnInit {
-
+  hide = true;
   constructor(public dialog: MatDialog) {
     const dialogRef = this.dialog.open(ModalLoginDialogComponent , {
       width: '250px'

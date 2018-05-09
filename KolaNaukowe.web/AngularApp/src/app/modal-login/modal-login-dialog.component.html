@@ -1,7 +1,29 @@
-<h1 mat-dialog-title>Logowanie- komponent</h1>
-<mat-dialog-content>Szkic
-
+<h1 mat-dialog-title>Logowanie</h1>
+<mat-dialog-content>
+    
+  <mat-form-field>
+      <input matInput placeholder="Wprowadź hasło" [type]="hide ? 'password' : 'text'">
+      
+  </mat-form-field>
+  <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Podaj login" value>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <textarea matInput placeholder="Textarea"></textarea>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-select placeholder="Select">
+          <mat-option value="option">Option</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+  
 </mat-dialog-content>
 <div mat-dialog-actions>
-  <button mat-button (click)="closeClick()">Zamknij</button>
+  <button mat-button (click)="closeClick()" class="btn btn-info">Zamknij</button>
 </div>
+
