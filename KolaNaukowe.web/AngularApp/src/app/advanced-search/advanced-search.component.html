@@ -22,7 +22,7 @@
 					<div class="col-sm-8">						
 						<a href="#" class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Odśwież listę</span></a>
 						<a href="#" class="btn btn-info"><i class="material-icons">&#xE24D;</i> <span>Wyeksportuj do excela</span></a>
-                        <a href="#" class="btn btn-info"><i class="material-icons">&#xE145;</i> <span>Dodaj koło</span></a>
+                        <a [routerLink]="[{ outlets: { addScienceClubModal: ['addScienceClub'] } }]" routerLinkActive="active" class="btn btn-info"><i class="material-icons">&#xE145;</i> <span>Dodaj koło</span></a>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,8 @@
             </div>
         </div>
     </div>     
-
+    <router-outlet></router-outlet>
+    <router-outlet name="addScienceClubModal"></router-outlet>
       
 </body>
 </html>

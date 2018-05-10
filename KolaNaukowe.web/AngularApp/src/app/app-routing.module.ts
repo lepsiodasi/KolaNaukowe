@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import { HomeComponent } from './home/home.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
-
+import { AddScienceClubComponent } from './add-science-club/add-science-club.component';
 const routes: Routes = [
   // { path: '', component: HomeComponent, pathMatch: 'full' },
   {
@@ -19,6 +19,11 @@ const routes: Routes = [
     path: 'login',
     component: ModalLoginComponent,
     outlet: 'loginModal'
+  },
+  {
+    path: 'addScienceClub',
+    component: AddScienceClubComponent,
+    outlet: 'addScienceClubModal'
   }
 ];
 @NgModule({

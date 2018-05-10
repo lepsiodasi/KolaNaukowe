@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>
+  Dodaj nowe koło naukowe
+</h2>
+<mat-dialog-content>
+    <mat-form-field>
+        <input matInput placeholder="Podaj nazwę" value>
+    </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close class="btn btn-info">
+    Zamknij
+  </button>
+  <button
+      (click)="closeDialog()">
+      Dodaj
+  </button>
+</mat-dialog-actions>

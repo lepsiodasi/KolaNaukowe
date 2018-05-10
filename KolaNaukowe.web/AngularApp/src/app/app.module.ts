@@ -14,6 +14,7 @@ import { ModalLoginDialogComponent } from './modal-login/modal-login.component';
 
 
 import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { AddScienceClubComponent } from './add-science-club/add-science-club.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/ma
     HomeComponent,
     AdvancedSearchComponent,
     ModalLoginComponent,
-    ModalLoginDialogComponent
+    ModalLoginDialogComponent,
+    AddScienceClubComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/ma
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ModalLoginComponent, ModalLoginDialogComponent]
+  entryComponents: [ModalLoginComponent, ModalLoginDialogComponent,
+    AddScienceClubComponent]
 })
 export class AppModule { }
