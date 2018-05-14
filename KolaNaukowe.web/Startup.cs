@@ -104,6 +104,7 @@ namespace KolaNaukowe.web
             app.UseStaticFiles();
 
             app.UseIdentityServer();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseMvc(routes =>
             {

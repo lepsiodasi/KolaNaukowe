@@ -24,6 +24,13 @@ namespace KolaNaukowe.web.Controllers.Api
             _studentResearchGroupService = studentResearchGroupService;
         }
 
+        [HttpGet("Test")]
+        public String TestText()
+        {
+            return "test text";
+        }
+
+
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
