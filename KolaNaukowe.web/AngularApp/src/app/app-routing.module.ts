@@ -13,7 +13,13 @@ const routes: Routes = [
   {
     path: 'advancedSearch',
     component: AdvancedSearchComponent,
-    pathMatch: 'full'
+    children: [
+      {
+        path: 'addScienceClub',
+        component: AddScienceClubComponent,
+        outlet: 'addScienceClubModal'
+       }
+    ]
   },
   {
     path: 'login',

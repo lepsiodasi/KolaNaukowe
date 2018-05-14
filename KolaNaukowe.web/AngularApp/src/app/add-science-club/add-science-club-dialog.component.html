@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>
+  Dodaj nowe koło naukowe
+</h2>
+<mat-dialog-content>
+    <mat-form-field>
+        <input matInput placeholder="Podaj nazwę" value>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput placeholder="Opis"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Wydziały">
+          <mat-option value="option">Chemiczny</mat-option>
+          <mat-option value="option">Elektroniki</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close class="btn btn-info">
+    Zamknij
+  </button>
+  <button
+      class="btn btn-default"
+      (click)="closeClick()" [routerLink]="['', {outlets: {addScienceClubModal: null}}]">
+      Dodaj
+  </button>
+</mat-dialog-actions>

@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-
-export interface ScienceClub
-{
-    name: string
-}
-
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-science-club',
   templateUrl: './add-science-club.component.html',
@@ -13,20 +8,28 @@ export interface ScienceClub
 })
 export class AddScienceClubComponent implements OnInit {
 
-  constructor(
-    public dialog: MatDialogRef<AddScienceClubComponent>
-  ) { }
+  constructor( public dialog: MatDialog, private router: Router) {
+    const dialogRef = this.dialog.open(AddScienceClubDialogComponent , {
+      width: '300px',
+      height: '400px'
+    });
+    this.router.navigate(['/advancedSearch']);
+  }
 
   ngOnInit() {
   }
+}
 
-  closeDialog() {
-    this.dialog.close();
+@Component({
+  selector: 'app-add-science-club-dialog',
+  templateUrl: './add-science-club-dialog.component.html'
+})
+export class AddScienceClubDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<AddScienceClubDialogComponent>) {}
+
+  closeClick(): void {
+    this.dialogRef.close();
   }
-
-  addScienceClub(scienceClub : ScienceClub)
-  {
-    this.dialog.close(scienceClub);
-  }
-
 }

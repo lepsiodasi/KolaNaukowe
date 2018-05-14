@@ -9,12 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ModalLoginDialogComponent } from './modal-login/modal-login.component';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
-import { AddScienceClubComponent } from './add-science-club/add-science-club.component';
+import { AddScienceClubComponent, AddScienceClubDialogComponent } from './add-science-club/add-science-club.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,11 @@ import { AddScienceClubComponent } from './add-science-club/add-science-club.com
     AdvancedSearchComponent,
     ModalLoginComponent,
     ModalLoginDialogComponent,
-    AddScienceClubComponent
+    AddScienceClubComponent,
+    AddScienceClubDialogComponent
+  ],
+  exports: [
+    MatIconModule
   ],
   imports: [
     BrowserModule,
@@ -32,11 +38,17 @@ import { AddScienceClubComponent } from './add-science-club/add-science-club.com
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
+    MatTabsModule
   ],
-  providers: [],
+  providers: [{
+    provide: MatDialogRef,
+    useValue: {
+    close: (dialogResult: any) => { }}
+  }],
   bootstrap: [AppComponent],
   entryComponents: [ModalLoginComponent, ModalLoginDialogComponent,
-    AddScienceClubComponent]
+    AddScienceClubComponent, AddScienceClubDialogComponent]
 })
 export class AppModule { }

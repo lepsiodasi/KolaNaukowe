@@ -19,10 +19,8 @@
                     <div class="col-sm-4">
 						<h2>Lista <b>Kół Naukowych</b></h2>
 					</div>
-					<div class="col-sm-8">						
-						<a href="#" class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Odśwież listę</span></a>
-						<a href="#" class="btn btn-info"><i class="material-icons">&#xE24D;</i> <span>Wyeksportuj do excela</span></a>
-                        <a [routerLink]="[{ outlets: { addScienceClubModal: ['addScienceClub'] } }]" routerLinkActive="active" class="btn btn-info"><i class="material-icons">&#xE145;</i> <span>Dodaj koło</span></a>
+					<div class="col-sm-8">
+                        <a [routerLink]="[{ outlets: { addScienceClubModal: ['addScienceClub'] } }]" routerLinkActive="active" class="btn btn-primary"><i class="material-icons">&#xE145;</i><span>Dodaj koło</span></a>
                     </div>
                 </div>
             </div>
@@ -51,10 +49,10 @@
 							<select class="form-control">
 								<option>Wszystkie</option>
 								<option>Wydział Matematyki</option>
-								<option>Wydział Chemiczny</option>							
+								<option>Wydział Chemiczny</option>
 							</select>
 						</div>
-						
+
 						<span class="filter-icon"><i class="fa fa-filter"></i>  Filtrowanie</span>
                    </div>
                 </div>
@@ -65,8 +63,8 @@
                         <th>#</th>
                         <th>Nazwa Koła</th>
 						<th>Wydział</th>
-						<th>Data założenia</th>						
-                        <th>Opiekun</th>						
+						<th>Data założenia</th>
+                        <th>Opiekun</th>
 						<th>Prezes</th>
 						<th>Więcej</th>
                     </tr>
@@ -76,7 +74,7 @@
                         <td>1</td>
                         <td><a href="#"><img src="http://icons.iconarchive.com/icons/iconleak/cerulean/32/science-chemistry-icon.png" class="avatar" alt="Logo"> Koło1</a></td>
 						<td>Chemiczny</td>
-                        <td>Jun 15, 2017</td>                        
+                        <td>Jun 15, 2017</td>
 						<td> Ktoś</td>
 						<td>Jarosław Boberek</td>
 						<td><a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
@@ -84,14 +82,21 @@
 					<tr>
                         <td>2</td>
                         <td><a href="#"><img src="http://icons.iconarchive.com/icons/treetog/junior/32/tool-box-icon.png" class="avatar" alt="Logo"> Koło2</a></td>
-                        <td>Mechaniczny</td>                       
+                        <td>Mechaniczny</td>
 						<td>Jun 21, 2017</td>
 						<td>Ktoś</td>
 						<td>Ktoś</td>
-						<td><a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
+            <td>
+              <div>
+                  <a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a>
+                  <mat-icon>edit</mat-icon>
+                  <mat-icon>delete</mat-icon>
+              </div>
+
+            </td>
                     </tr>
 					<tr>
-                        
+
                 </tbody>
             </table>
 			<div class="clearfix">
@@ -109,9 +114,9 @@
                 </ul>
             </div>
         </div>
-    </div>     
+    </div>
     <router-outlet></router-outlet>
     <router-outlet name="addScienceClubModal"></router-outlet>
-      
+
 </body>
 </html>
