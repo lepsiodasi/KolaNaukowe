@@ -75,7 +75,11 @@ namespace KolaNaukowe.web
             services.AddScoped<IGenericRepository<Student>, GenericRepository<Student>>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ProducesAttribute("application/json"));
+            });
+             //Add WebApi
 
             services.AddDbContext<KolaNaukoweDbContext>(o => o.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=KolaNaukowe;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
 
@@ -103,10 +107,19 @@ namespace KolaNaukowe.web
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
+            routes.MapRoute(
+             name: "StudentResearchGroupController",
+             template: "api/{controller}/{action}/{id?}",
+            defaults: new { controller = "StudentResearchGroup", action = "GetAll" });
+            // defaults: new { controller = "StudentResearchGroupController", action = "GetAll" });
+
+            routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                  // defaults: new { controller = "Home", action = "PageOne" });
             });
+
+            
         }
     }
 }
