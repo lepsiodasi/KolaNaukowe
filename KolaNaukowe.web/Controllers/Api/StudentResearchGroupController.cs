@@ -6,11 +6,13 @@ using KolaNaukowe.web.Data;
 using KolaNaukowe.web.Dtos;
 using KolaNaukowe.web.Models;
 using KolaNaukowe.web.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KolaNaukowe.web.Controllers.Api
 {
+    [EnableCors("CorsPolicy")]
     [Produces("application/json")]
     [Route("api/StudentResearchGroup")]
     public class StudentResearchGroupController : Controller

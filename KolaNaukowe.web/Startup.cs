@@ -85,6 +85,15 @@ namespace KolaNaukowe.web
 
             services.AddTransient<IEmailSender, EmailSender>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,7 +113,8 @@ namespace KolaNaukowe.web
             app.UseStaticFiles();
 
             app.UseIdentityServer();
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+
+            app.UseCors("CorsPolicy");
 
             app.UseMvc(routes =>
             {
