@@ -27,9 +27,9 @@ namespace KolaNaukowe.web.Controllers.Api
         }
 
         [HttpGet("Test")]
-        public String TestText()
+        public IActionResult TestText()
         {
-            return "test text";
+            return Json("test text");
         }
 
 

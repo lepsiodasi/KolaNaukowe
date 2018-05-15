@@ -122,7 +122,6 @@ namespace KolaNaukowe.web
              name: "StudentResearchGroupController",
              template: "api/{controller}/{action}/{id?}",
             defaults: new { controller = "StudentResearchGroup", action = "GetAll" });
-            // defaults: new { controller = "StudentResearchGroupController", action = "GetAll" });
 
             routes.MapRoute(
                     name: "default",

@@ -14,7 +14,7 @@ export class ScienceClubService {
 
   constructor(private http: HttpClient) { }
   getTest(): Observable<String> {
-    return this.http.get<String>('https://localhost:50000/api/StudentResearchGroup/Test');
+    return this.http.get<String>('http://localhost:50000/api/StudentResearchGroup/Test');
   }
 
   getAllScienceClubs(): Observable<Array<IScienceClub>> {

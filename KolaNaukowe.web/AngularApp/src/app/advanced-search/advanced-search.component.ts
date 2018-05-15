@@ -17,8 +17,8 @@ export class AdvancedSearchComponent implements OnInit {
 
   getTest() {
      this.httpService.getTest().subscribe(test => {
-      this.testText = test;
+        this.testText = test;
+        console.log(this.testText);
     });
-    console.log(this.testText);
   }
 }
