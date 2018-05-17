@@ -32,6 +32,13 @@ namespace KolaNaukowe.web.Controllers.Api
             return Json("test text");
         }
 
+        [HttpGet("WriteAll")]
+        public IActionResult WriteAll()
+        {
+            var model = _studentResearchGroupService.WriteAll();
+            return Json(model);
+        }
+
 
         [HttpGet("GetAll")]
         public IActionResult GetAll()

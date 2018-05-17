@@ -9,16 +9,26 @@ import { ScienceClubService } from './science-club.service';
 })
 export class AdvancedSearchComponent implements OnInit {
   testText: String = 'cos';
+  data: any;
   constructor(private httpService: ScienceClubService) { }
 
   ngOnInit() {
     this.getTest();
+    this.getAllScienceClubs();
   }
 
   getTest() {
      this.httpService.getTest().subscribe(test => {
         this.testText = test;
         console.log(this.testText);
+    });
+  }
+
+  getAllScienceClubs() {
+    this.httpService.getAllScienceClubs().subscribe(data => {
+        this.data = data;
+        console.log(this.data);
+        console.log('One: ' + this.data[0]);
     });
   }
 }

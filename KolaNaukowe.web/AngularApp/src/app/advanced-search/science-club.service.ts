@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 export interface IScienceClub {
   id: number;
   name: string;
+  date: Date;
+  department: string;
 }
 
 @Injectable()
@@ -18,7 +20,7 @@ export class ScienceClubService {
   }
 
   getAllScienceClubs(): Observable<Array<IScienceClub>> {
-    return this.http.get<Array<IScienceClub>>('http://localhost:50000/api/StudentResearchGroup/GetAll');
+    return this.http.get<Array<IScienceClub>>('http://localhost:50000/api/StudentResearchGroup/WriteAll');
   }
 
   getDetails(id: number): Observable<IScienceClub> {
@@ -33,7 +35,7 @@ export class ScienceClubService {
     return this.http.put<void>('http://localhost:50000/api/StudentResearchGroup/' + id, scienceClub);
   }
 
-  deleteScienceClub(id: number){
+  deleteScienceClub(id: number) {
     return this.http.delete('http://localhost:50000/api/StudentResearchGroup/' + id);
   }
 }

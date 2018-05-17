@@ -118,5 +118,33 @@
     <router-outlet></router-outlet>
     <router-outlet name="addScienceClubModal"></router-outlet>
 
+
+    <table class="table">
+
+      <tr>
+
+          <th>#</th>
+
+          <th>Name</th>
+
+          <th>Date</th>
+
+          <th>Department</th>
+
+      </tr>
+
+      <tr *ngFor="let scienceClub of data; let i = index">
+
+          <td>{{scienceClub.id}}</td>
+
+          <td>{{scienceClub.name}}</td>
+
+          <td>{{scienceClub.date}}</td>
+
+          <td>{{scienceClub.department}}</td>
+
+      </tr>
+
+  </table>
 </body>
 </html>
