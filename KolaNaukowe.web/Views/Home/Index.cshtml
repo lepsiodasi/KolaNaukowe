@@ -61,11 +61,15 @@
             </td>
             <td>
                 @if (ViewContext.HttpContext.User.IsInRole("Administrator") || ViewContext.HttpContext.User.IsInRole("Leader"))
-                 {
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                }
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>                
+                  {
+                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                  }
+                @if (ViewContext.HttpContext.User.IsInRole("Administrator"))
+                  {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Delete</a>
+                  }
+
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
         }

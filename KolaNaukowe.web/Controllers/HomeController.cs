@@ -59,7 +59,7 @@ namespace KolaNaukowe.web.Controllers
             return View(student);
         }
 
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "LeaderAndAdmin")]
         public IActionResult Create()
         {    
             return View();
