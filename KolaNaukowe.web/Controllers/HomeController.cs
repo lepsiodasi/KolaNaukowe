@@ -58,6 +58,7 @@ namespace KolaNaukowe.web.Controllers
 
             return View(student);
         }
+
         [Authorize(Policy = "AdminOnly")]
         public IActionResult Create()
         {    
@@ -77,7 +78,7 @@ namespace KolaNaukowe.web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int id, StudentResearchGroup newStudentResearchGroup)
+        public IActionResult Delete(int id)
         {
             if (!ModelState.IsValid)
             {

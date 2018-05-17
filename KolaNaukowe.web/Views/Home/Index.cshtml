@@ -6,9 +6,12 @@
 
 <h2>Kola Naukowe</h2>
 
+@if (ViewContext.HttpContext.User.IsInRole("Administrator") || ViewContext.HttpContext.User.IsInRole("Leader"))
+{
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+}
 
 <form asp-controller="Home" asp-action="Index" method="get">
     <p>
@@ -57,9 +60,12 @@
                 }
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @if (ViewContext.HttpContext.User.IsInRole("Administrator") || ViewContext.HttpContext.User.IsInRole("Leader"))
+                 {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>                
             </td>
         </tr>
         }

@@ -11,8 +11,8 @@ using System;
 namespace KolaNaukowe.web.Migrations
 {
     [DbContext(typeof(KolaNaukoweDbContext))]
-    [Migration("20180430151905_subjects")]
-    partial class subjects
+    [Migration("20180517102619_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,8 +101,6 @@ namespace KolaNaukowe.web.Migrations
 
                     b.Property<string>("Department");
 
-                    b.Property<string>("MetaDataJsonForDb");
-
                     b.Property<string>("Name")
                         .HasMaxLength(50);
 
@@ -111,6 +109,23 @@ namespace KolaNaukowe.web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StudentResearchGroups");
+                });
+
+            modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int?>("researchGroupsId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("researchGroupsId");
+
+                    b.ToTable("Subject");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -226,6 +241,13 @@ namespace KolaNaukowe.web.Migrations
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "StudentResearchGroup")
                         .WithMany("Students")
                         .HasForeignKey("StudentResearchGroupId");
+                });
+
+            modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
+                {
+                    b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "researchGroups")
+                        .WithMany("Subjects")
+                        .HasForeignKey("researchGroupsId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

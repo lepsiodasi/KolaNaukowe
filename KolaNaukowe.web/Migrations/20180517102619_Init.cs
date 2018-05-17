@@ -192,6 +192,26 @@ namespace KolaNaukowe.web.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Subject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    researchGroupsId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subject", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subject_StudentResearchGroups_researchGroupsId",
+                        column: x => x.researchGroupsId,
+                        principalTable: "StudentResearchGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -235,6 +255,11 @@ namespace KolaNaukowe.web.Migrations
                 name: "IX_Students_StudentResearchGroupId",
                 table: "Students",
                 column: "StudentResearchGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subject_researchGroupsId",
+                table: "Subject",
+                column: "researchGroupsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -256,6 +281,9 @@ namespace KolaNaukowe.web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Subject");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
