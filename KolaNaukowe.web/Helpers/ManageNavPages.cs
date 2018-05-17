@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace KolaNaukowe.web.Views.Manage
+namespace KolaNaukowe.web.Helpers
 {
     public static class ManageNavPages
     {
