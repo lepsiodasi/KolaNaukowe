@@ -75,8 +75,12 @@ namespace KolaNaukowe.web.Services
             _genericRepository.Update(item);
         }
 
-      
+        public IEnumerable<WriteStudentResearchGroupDto> WriteAll()
+        {
+            var studentResearchGroups = _genericRepository.GetAll(g => g.Subjects)
+                                                          .OrderBy(c => c.Name);
 
-       
+            return _mapper.Map<IEnumerable<StudentResearchGroup>, IEnumerable<WriteStudentResearchGroupDto>>(studentResearchGroups);
+        }
     }
 }

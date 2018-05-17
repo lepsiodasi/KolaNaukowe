@@ -10,6 +10,7 @@ namespace KolaNaukowe.web.Services
     public interface IStudentResearchGroupService
     {
         IEnumerable<StudentResearchGroupDto> GetAll();
+        IEnumerable<WriteStudentResearchGroupDto> WriteAll();
         IEnumerable<string> GetAllSubjects();
         StudentResearchGroupDto Get(int id);
         StudentResearchGroupDto Add(StudentResearchGroup newStudentResearchGroup);
