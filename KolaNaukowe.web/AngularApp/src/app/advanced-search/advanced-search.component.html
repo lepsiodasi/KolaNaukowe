@@ -64,35 +64,23 @@
                         <th>Nazwa Koła</th>
 						<th>Wydział</th>
 						<th>Data założenia</th>
-                        <th>Opiekun</th>
-						<th>Prezes</th>
 						<th>Więcej</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="#"><img src="http://icons.iconarchive.com/icons/iconleak/cerulean/32/science-chemistry-icon.png" class="avatar" alt="Logo"> Koło1</a></td>
-						<td>Chemiczny</td>
-                        <td>Jun 15, 2017</td>
-						<td> Ktoś</td>
-						<td>Jarosław Boberek</td>
-						<td><a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
-                    </tr>
-					<tr>
-                        <td>2</td>
-                        <td><a href="#"><img src="http://icons.iconarchive.com/icons/treetog/junior/32/tool-box-icon.png" class="avatar" alt="Logo"> Koło2</a></td>
-                        <td>Mechaniczny</td>
-						<td>Jun 21, 2017</td>
-						<td>Ktoś</td>
-						<td>Ktoś</td>
-            <td>
-              <div>
-                  <a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a>
-                  <mat-icon>edit</mat-icon>
-                  <mat-icon>delete</mat-icon>
-              </div>
+					<tr *ngFor="let scienceClub of data; let i = index">
+              <td>{{scienceClub.id}}</td>
 
+              <td>{{scienceClub.name}}</td>
+
+              <td>{{scienceClub.department}}</td>
+
+              <td>{{scienceClub.date}}</td>
+
+            <td>
+                <a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a>
+                <mat-icon>edit</mat-icon>
+                <mat-icon>delete</mat-icon>
             </td>
                     </tr>
 					<tr>
@@ -118,33 +106,5 @@
     <router-outlet></router-outlet>
     <router-outlet name="addScienceClubModal"></router-outlet>
 
-
-    <table class="table">
-
-      <tr>
-
-          <th>#</th>
-
-          <th>Name</th>
-
-          <th>Date</th>
-
-          <th>Department</th>
-
-      </tr>
-
-      <tr *ngFor="let scienceClub of data; let i = index">
-
-          <td>{{scienceClub.id}}</td>
-
-          <td>{{scienceClub.name}}</td>
-
-          <td>{{scienceClub.date}}</td>
-
-          <td>{{scienceClub.department}}</td>
-
-      </tr>
-
-  </table>
 </body>
 </html>
