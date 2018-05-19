@@ -3,6 +3,8 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 import { Router } from '@angular/router';
 import {MatTabsModule} from '@angular/material/tabs';
 
+
+
 @Component({
   selector: 'app-modal-login',
   templateUrl: './modal-login.component.html',
@@ -19,8 +21,6 @@ export class ModalLoginComponent implements OnInit {
   ngOnInit() {
   }
 }
-
-// https://material.angular.io/components/input/overview E-mail
 
 const hide = true;
 @Component({
