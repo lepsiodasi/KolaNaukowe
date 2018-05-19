@@ -18,10 +18,10 @@ namespace KolaNaukowe.web.Models
         public DateTime CreatedAt { get; set; }
         public string Department { get; set; }
         public IEnumerable<Student> Students { get; set; }
-
-        
+        public string Leader { get; set; }
+        public string Attendant { get; set; }
         public List<Subject> Subjects { get; set; }
- 
+        public string Description { get; set; }
         // user ID from AspNetUser table.
         public string OwnerId { get; set; }
 

@@ -39,8 +39,7 @@ namespace KolaNaukowe.web.Services
         {
             var studentResearchGroups = _genericRepository.GetAll(g => g.Subjects)
                                                           .OrderBy(c => c.Name);
-                                                          
-                                                                            
+                                                                                                                                     
             return _mapper.Map<IEnumerable<StudentResearchGroup>, IEnumerable<StudentResearchGroupDto>>(studentResearchGroups);                      
         }
 
@@ -81,6 +80,12 @@ namespace KolaNaukowe.web.Services
                                                           .OrderBy(c => c.Name);
 
             return _mapper.Map<IEnumerable<StudentResearchGroup>, IEnumerable<WriteStudentResearchGroupDto>>(studentResearchGroups);
+        }
+
+        public WriteDetailsStudentResearchGroupDto WriteDetails(int id)
+        {
+            var studentResearchGroup = _genericRepository.Get(g => g.Id.Equals(id), g => g.Subjects);
+            return _mapper.Map<StudentResearchGroup, WriteDetailsStudentResearchGroupDto>(studentResearchGroup);
         }
     }
 }

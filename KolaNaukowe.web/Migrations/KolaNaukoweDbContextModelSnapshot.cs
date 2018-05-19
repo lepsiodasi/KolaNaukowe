@@ -96,9 +96,15 @@ namespace KolaNaukowe.web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Attendant");
+
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Department");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Leader");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50);

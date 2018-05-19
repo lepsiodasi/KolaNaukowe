@@ -33,7 +33,6 @@ namespace KolaNaukowe.web.Repositories
             foreach (Expression<Func<TEntity, object>> navigationProperty in navigationProperties)
             {
                 dbQuery = dbQuery.Include<TEntity, object>(navigationProperty);
-
             }
 
             var item  = dbQuery

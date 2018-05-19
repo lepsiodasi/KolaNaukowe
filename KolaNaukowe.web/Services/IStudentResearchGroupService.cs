@@ -11,6 +11,7 @@ namespace KolaNaukowe.web.Services
     {
         IEnumerable<StudentResearchGroupDto> GetAll();
         IEnumerable<WriteStudentResearchGroupDto> WriteAll();
+        WriteDetailsStudentResearchGroupDto WriteDetails(int id);
         IEnumerable<string> GetAllSubjects();
         StudentResearchGroupDto Get(int id);
         StudentResearchGroupDto Add(StudentResearchGroup newStudentResearchGroup);

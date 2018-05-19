@@ -54,8 +54,11 @@ namespace KolaNaukowe.web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Attendant = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     Department = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Leader = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 50, nullable: true),
                     OwnerId = table.Column<string>(nullable: true)
                 },
