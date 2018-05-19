@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KolaNaukowe.web.Dtos
+namespace KolaNaukowe.web.Dtos.Api
 {
-    public class StudentDto
+    public class SubjectDto
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
         public string Name { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }

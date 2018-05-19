@@ -47,13 +47,13 @@ namespace KolaNaukowe.web.Controllers.Api
             return Json(model);
         }
         
-        [HttpGet("{id:int}")]
+        [HttpGet("Details/{id:int}")]
         public IActionResult Details(int id)
         {
-            var student = _studentResearchGroupService.Get(id);
+            var student = _studentResearchGroupService.WriteDetails(id);
             if(student == null)
                 return NotFound(id);
-            return Json(_studentResearchGroupService.GetAll().FirstOrDefault(x => x.Id == id));
+            return Json(student);
         }
 
         [HttpDelete]

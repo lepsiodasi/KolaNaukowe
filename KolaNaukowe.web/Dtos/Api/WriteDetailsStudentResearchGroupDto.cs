@@ -1,4 +1,5 @@
-﻿using KolaNaukowe.web.Models;
+﻿using KolaNaukowe.web.Dtos.Api;
+using KolaNaukowe.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,10 @@ namespace KolaNaukowe.web.Dtos
 {
     public class WriteDetailsStudentResearchGroupDto
     {
+        public WriteDetailsStudentResearchGroupDto()
+        {
+            Subjects = new List<SubjectDto>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -15,6 +20,6 @@ namespace KolaNaukowe.web.Dtos
         public string Attendant { get; set; }
         public string Leader { get; set; }
         public string Description { get; set; }
-        public List<Subject> Subjects { get; set; }
+        public List<SubjectDto> Subjects { get; set; }
     }
 }
