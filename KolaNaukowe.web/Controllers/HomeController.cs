@@ -8,6 +8,7 @@ using System.Linq;
 using KolaNaukowe.web.Extensions;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using IdentityServer4.AccessTokenValidation;
 
 namespace KolaNaukowe.web.Controllers
 {
@@ -120,6 +121,7 @@ namespace KolaNaukowe.web.Controllers
             ViewData["Message"] = "Your application description page.";
             return View();
         }
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
         public IActionResult Contact()
         {
       

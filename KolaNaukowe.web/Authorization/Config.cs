@@ -1,43 +1,66 @@
-﻿using IdentityServer4.Models;
-using System;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace KolaNaukowe.web.Authorization
+namespace KolaNaukowe.web
 {
     public class Config
     {
-        public static IEnumerable<Client> Clients = new List<Client>
-       {
-           new Client
-           {
-               ClientId = "StudentResearchGroupsClient",
-               ClientName = "StudentResearchGroupsClient",
-               AllowedGrantTypes = GrantTypes.ClientCredentials,
-               AllowAccessTokensViaBrowser = true,
-               RequireConsent = false,
-              RedirectUris = {
-                    "http://localhost:50000/callback.html",
-                    "http://localhost:50000/popup.html",
-                    "http://localhost:50000/silent.html"
-                },
-                PostLogoutRedirectUris = { "http://localhost:50000/index.html" },
-               AllowedScopes = {"openid", "profile", "email", "api"},
-               AllowOfflineAccess = true,
-            },
-        };
-
-        public static IEnumerable<IdentityResource> identityResources = new List<IdentityResource>
+        // Identity resources (used by UserInfo endpoint).
+        public static IEnumerable<IdentityResource> GetIdentityResources()
         {
-            new IdentityResources.OpenId(),
-            new IdentityResources.Profile(),
-            new IdentityResources.Email(),
-        };
+            return new List<IdentityResource>
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                new IdentityResource("roles", new List<string> { "role" })
+            };
+        }
 
-        public static IEnumerable<ApiResource> Apis = new List<ApiResource>
+        // Api resources.
+        public static IEnumerable<ApiResource> GetApiResources()
         {
-            new ApiResource("StudentResearchGroupAPI", "StudentResearchGroupAPI")
-        };
+            return new List<ApiResource>
+            {
+                new ApiResource("StudentResearchGroupAPI" ) {
+                    UserClaims = { "role" }
+                }
+            };
+        }
+
+        // Clients want to access resources.
+        public static IEnumerable<Client> GetClients()
+        {
+            // Clients credentials.
+            return new List<Client>
+            {
+                // http://docs.identityserver.io/en/release/reference/client.html.
+                new Client
+                {
+                    ClientId = "ResourceOwnerClient",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword, // Resource Owner Password Credential grant.
+                    AllowAccessTokensViaBrowser = true,
+                    RequireClientSecret = false, // This client does not need a secret to request tokens from the token endpoint.
+
+                    AccessTokenLifetime = 900, // Lifetime of access token in seconds.
+
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId, // For UserInfo endpoint.
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "roles",
+                        "StudentResearchGroupAPI"
+                    },
+                    AllowOfflineAccess = true, // For refresh token.
+                    RefreshTokenUsage = TokenUsage.OneTimeOnly,
+                    AbsoluteRefreshTokenLifetime = 7200,
+                    SlidingRefreshTokenLifetime = 900,
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "http://localhost:4200"
+                    } // Only for development.
+                }
+            };
+        }
     }
 }
