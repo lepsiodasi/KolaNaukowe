@@ -17,7 +17,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { AddScienceClubComponent, AddScienceClubDialogComponent } from './add-science-club/add-science-club.component';
-
+import { ScienceClubDetailsComponent } from './science-club-details/science-club-details.component';
+import { ScienceClubDetailsService } from './science-club-details/science-club-details.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { AddScienceClubComponent, AddScienceClubDialogComponent } from './add-sc
     ModalLoginComponent,
     ModalLoginDialogComponent,
     AddScienceClubComponent,
-    AddScienceClubDialogComponent
+    AddScienceClubDialogComponent,
+    ScienceClubDetailsComponent
   ],
   exports: [
     MatIconModule
@@ -45,6 +47,7 @@ import { AddScienceClubComponent, AddScienceClubDialogComponent } from './add-sc
   ],
   providers: [
     ScienceClubService,
+    ScienceClubDetailsService
   {
     provide: MatDialogRef,
     useValue: {

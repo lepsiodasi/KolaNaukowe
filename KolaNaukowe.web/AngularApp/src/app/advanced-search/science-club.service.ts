@@ -5,8 +5,17 @@ import { HttpClient } from '@angular/common/http';
 export interface IScienceClub {
   id: number;
   name: string;
-  date: Date;
+  date: string;
   department: string;
+  attendant: string;
+  leader: string;
+  description: string;
+  subjects: Array<ISubject>;
+}
+
+export interface ISubject {
+  id: number;
+  name: string;
 }
 
 @Injectable()

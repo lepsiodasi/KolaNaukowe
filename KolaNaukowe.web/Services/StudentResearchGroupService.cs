@@ -78,7 +78,6 @@ namespace KolaNaukowe.web.Services
         {
             var studentResearchGroups = _genericRepository.GetAll(g => g.Subjects)
                                                           .OrderBy(c => c.Name);
-
             return _mapper.Map<IEnumerable<StudentResearchGroup>, IEnumerable<WriteStudentResearchGroupDto>>(studentResearchGroups);
         }
 

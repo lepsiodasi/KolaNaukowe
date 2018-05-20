@@ -1,0 +1,28 @@
+<p>
+  <br>
+  <br>
+  <br>
+  Id: {{scienceClubId}}
+  <br>
+  Nazwa: {{data.id}}
+  <br>
+  <span>Date : {{data.createdAt | date:'dd/MMM/yyyy'}}</span>
+  Data utworzenia: {{data.createdAt}}
+  <br>
+  Wydział: {{data.department}}
+  <br>
+  Opiekun: {{data.attendant}}
+  <br>
+  Lider: {{data.leader}}
+  <br>
+  Opis: {{data.description}}
+  <br>
+  Tematy:
+  <br>
+</p>
+  <div *ngFor="let subject of data.subjects">
+      Id : {{ subject.id }}
+      <br>
+      Nazwa: {{subject.name}}
+  </div>
+

@@ -1,3 +1,4 @@
+import { ScienceClubDetailsComponent } from './science-club-details/science-club-details.component';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { AddScienceClubComponent } from './add-science-club/add-science-club.component';
+
 const routes: Routes = [
   // { path: '', component: HomeComponent, pathMatch: 'full' },
   {
@@ -20,6 +22,9 @@ const routes: Routes = [
         outlet: 'addScienceClubModal'
        }
     ]
+  },
+  { path: 'scienceClubDetails/:id',
+    component: ScienceClubDetailsComponent
   },
   {
     path: 'login',
