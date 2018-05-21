@@ -14,12 +14,14 @@ namespace KolaNaukowe.web.Controllers
     public class HomeController : Controller
     {
         private IStudentResearchGroupService _studentResearchGroupService;
+        private ISubjectService _subjectService;
         private KolaNaukoweDbContext _context;
 
-        public HomeController(IStudentResearchGroupService studentResearchGroupService, KolaNaukoweDbContext context)
+        public HomeController(IStudentResearchGroupService studentResearchGroupService, ISubjectService subjectService, KolaNaukoweDbContext context)
         {
             _context = context;
             _studentResearchGroupService = studentResearchGroupService;
+            _subjectService = subjectService;
         }
         
         public IActionResult Index(string searchName, string researchGroupSubject)
@@ -85,6 +87,14 @@ namespace KolaNaukowe.web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var studentResearchGroup = _studentResearchGroupService.Get(id);
+
+            var subjects = _context.Subjects.Where(s => s.researchGroups.Id == studentResearchGroup.Id).ToList();
+
+            foreach(var subject in subjects)
+            {
+                _subjectService.Remove(subject.Id);
+            }
+
             _studentResearchGroupService.Remove(id);
 
             return View(studentResearchGroup);

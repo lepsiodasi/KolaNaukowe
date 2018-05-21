@@ -12,7 +12,6 @@ namespace KolaNaukowe.web.Models
     {
         [Key]
         public int Id { get; set; }
-
         [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -24,6 +23,5 @@ namespace KolaNaukowe.web.Models
         public string Description { get; set; }
         // user ID from AspNetUser table.
         public string OwnerId { get; set; }
-
     }
 }

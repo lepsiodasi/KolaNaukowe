@@ -57,6 +57,7 @@ namespace KolaNaukowe.web.Repositories
         public void Remove(int id)
         {
             var item = _context.Set<TEntity>().Find(id);
+
             if(item != null)
             {
                 _context.Set<TEntity>().Remove(item);

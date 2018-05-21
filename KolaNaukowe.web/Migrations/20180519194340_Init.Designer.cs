@@ -11,7 +11,7 @@ using System;
 namespace KolaNaukowe.web.Migrations
 {
     [DbContext(typeof(KolaNaukoweDbContext))]
-    [Migration("20180519123908_Init")]
+    [Migration("20180519194340_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,7 +131,7 @@ namespace KolaNaukowe.web.Migrations
 
                     b.HasIndex("researchGroupsId");
 
-                    b.ToTable("Subject");
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -246,14 +246,17 @@ namespace KolaNaukowe.web.Migrations
                 {
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "StudentResearchGroup")
                         .WithMany("Students")
-                        .HasForeignKey("StudentResearchGroupId");
+                        .HasForeignKey("StudentResearchGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
                 {
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "researchGroups")
                         .WithMany("Subjects")
-                        .HasForeignKey("researchGroupsId");
+                        .HasForeignKey("researchGroupsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

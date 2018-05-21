@@ -192,11 +192,11 @@ namespace KolaNaukowe.web.Migrations
                         column: x => x.StudentResearchGroupId,
                         principalTable: "StudentResearchGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subject",
+                name: "Subjects",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -206,13 +206,13 @@ namespace KolaNaukowe.web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subject", x => x.Id);
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subject_StudentResearchGroups_researchGroupsId",
+                        name: "FK_Subjects_StudentResearchGroups_researchGroupsId",
                         column: x => x.researchGroupsId,
                         principalTable: "StudentResearchGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -260,8 +260,8 @@ namespace KolaNaukowe.web.Migrations
                 column: "StudentResearchGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subject_researchGroupsId",
-                table: "Subject",
+                name: "IX_Subjects_researchGroupsId",
+                table: "Subjects",
                 column: "researchGroupsId");
         }
 
@@ -286,7 +286,7 @@ namespace KolaNaukowe.web.Migrations
                 name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Subject");
+                name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

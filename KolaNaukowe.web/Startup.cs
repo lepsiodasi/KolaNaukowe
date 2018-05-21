@@ -71,8 +71,10 @@ namespace KolaNaukowe.web
 
             services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
             services.AddScoped<IStudentResearchGroupService, StudentResearchGroupService>();
+            services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<IGenericRepository<StudentResearchGroup>, GenericRepository<StudentResearchGroup>>();
             services.AddScoped<IGenericRepository<Student>, GenericRepository<Student>>();
+            services.AddScoped<IGenericRepository<Subject>, GenericRepository<Subject>>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMvc(options =>

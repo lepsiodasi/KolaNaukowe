@@ -130,7 +130,7 @@ namespace KolaNaukowe.web.Migrations
 
                     b.HasIndex("researchGroupsId");
 
-                    b.ToTable("Subject");
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
