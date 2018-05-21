@@ -75,10 +75,11 @@
 
               <td>{{scienceClub.department}}</td>
 
-              <td>{{scienceClub.date}}</td>
+              <td><span>{{scienceClub.createdAt | date:'dd/MMM/yyyy'}}</span></td>
 
             <td>
-                <a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a>
+              <!--scienceClubDetails/:id-->
+                <a [routerLink]="['/scienceClubDetails', scienceClub.id ]" routerLinkActive="active" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a>
                 <mat-icon>edit</mat-icon>
                 <mat-icon>delete</mat-icon>
             </td>

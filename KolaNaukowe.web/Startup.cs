@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using System.IdentityModel.Tokens.Jwt;
 using KolaNaukowe.web.Repositories;
 using KolaNaukowe.web.Mappers;
+using IdentityServer4.AccessTokenValidation;
 
 namespace KolaNaukowe.web
 {
@@ -44,20 +45,48 @@ namespace KolaNaukowe.web
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddInMemoryPersistedGrants()
-                .AddInMemoryIdentityResources(Config.identityResources)
-                .AddInMemoryClients(Config.Clients)
-                .AddInMemoryApiResources(Config.Apis)
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryApiResources(Config.GetApiResources())
                 .AddAspNetIdentity<ApplicationUser>();
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+                // Lockout settings.
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(1);
+            });
 
-            services.AddAuthentication()
-                  .AddJwtBearer(jwt =>
-                  {
-                      jwt.Authority = "http://localhost:5000";
-                      jwt.RequireHttpsMetadata = false;
-                      jwt.Audience = "StudentResearchGroupAPI";
-                  });
+            if (Enviroment.IsProduction())
+            {
+                services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                    .AddIdentityServerAuthentication(options =>
+                    {
+                        //Production website link
+                        options.Authority = "";
+                        options.RequireHttpsMetadata = false;
+
+                        options.ApiName = "StudentResearchGroupAPI";
+                    });
+            }
+            else
+            {
+                services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                    .AddIdentityServerAuthentication(options =>
+                    {
+                        options.Authority = "http://localhost:5000/";
+                        options.RequireHttpsMetadata = false;
+
+                        options.ApiName = "StudentResearchGroupAPI";
+                    });
+            }
 
 
             services.AddAuthorization(options =>
