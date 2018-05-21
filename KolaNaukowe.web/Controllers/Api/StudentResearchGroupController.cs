@@ -56,7 +56,7 @@ namespace KolaNaukowe.web.Controllers.Api
             return Json(student);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
             _studentResearchGroupService.Remove(id);

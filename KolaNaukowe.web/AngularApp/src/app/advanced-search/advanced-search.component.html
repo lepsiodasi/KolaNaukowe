@@ -81,7 +81,7 @@
               <!--scienceClubDetails/:id-->
                 <a [routerLink]="['/scienceClubDetails', scienceClub.id ]" routerLinkActive="active" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a>
                 <mat-icon>edit</mat-icon>
-                <mat-icon>delete</mat-icon>
+                <mat-icon (click)='deleteScienceClub(scienceClub.id)'>delete</mat-icon>
             </td>
                     </tr>
 					<tr>

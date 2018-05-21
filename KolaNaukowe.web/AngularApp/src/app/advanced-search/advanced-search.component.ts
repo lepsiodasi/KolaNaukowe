@@ -31,4 +31,8 @@ export class AdvancedSearchComponent implements OnInit {
         console.log('One: ' + this.data[0]);
     });
   }
+
+  deleteScienceClub(id: number) {
+    this.deleteScienceClub(id);
+  }
 }
