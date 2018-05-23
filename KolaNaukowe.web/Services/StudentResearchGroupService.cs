@@ -56,8 +56,14 @@ namespace KolaNaukowe.web.Services
             _genericRepository.Update(item);
         }
 
-      
 
-       
+        public void Accept(StudentResearchGroup item)
+        {
+            item.ApprovedByAdmin = true;
+            _genericRepository.Update(item);
+        }
+
+
+
     }
 }

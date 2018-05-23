@@ -16,6 +16,7 @@ namespace KolaNaukowe.web.Models
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Department { get; set; }
+        public bool ApprovedByAdmin { get; set; } = false;
         public IEnumerable<Student> Students { get; set; }
 
         // user ID from AspNetUser table.

@@ -21,7 +21,7 @@ namespace KolaNaukowe.web.Services
         public StudentDto Add(Student newStudent)
         {
             var student = _genericRepository.Add(newStudent);
-            return _mapper.Map<Student, StudentDto>(student);          
+            return _mapper.Map<Student, StudentDto>(student);
         }
 
         public StudentDto Get(int id)
@@ -46,4 +46,5 @@ namespace KolaNaukowe.web.Services
             _genericRepository.Update(item);
         }
     }
+
 }

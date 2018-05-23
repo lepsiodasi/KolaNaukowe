@@ -50,5 +50,9 @@ namespace KolaNaukowe.web.Repositories
             _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+     
+
+
     }
 }

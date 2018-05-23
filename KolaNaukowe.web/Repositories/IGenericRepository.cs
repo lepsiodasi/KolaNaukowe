@@ -9,5 +9,6 @@ namespace KolaNaukowe.web.Repositories
         TEntity Add(TEntity item);
         void Update(TEntity item);
         void Remove(int id);
+        
     }
 }

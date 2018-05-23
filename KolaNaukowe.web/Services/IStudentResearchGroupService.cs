@@ -15,5 +15,7 @@ namespace KolaNaukowe.web.Services
         StudentResearchGroupDto Add(StudentResearchGroup newStudentResearchGroup);
         void Update(StudentResearchGroup item);
         void Remove(int id);
+        void Accept(StudentResearchGroup item);
+
     }
 }

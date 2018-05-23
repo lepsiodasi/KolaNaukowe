@@ -10,15 +10,10 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<form asp-controller="Home" asp-action="Index" method="get">
-    <p>
-        Nazwa: <input type="text" name="SearchString" />
-        <input type="submit" value="Wyszukaj" />
-    </p>
-</form>
+<h3>Oczekujące</h3>
 <table class="table">
     <thead>
-        <tr>           
+        <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -28,13 +23,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
-            <th></th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.ApprovedByAdmin == true)
+            if (item.ApprovedByAdmin == false)
             {
                 <tr>
                     <td>
@@ -47,8 +44,7 @@
                         @Html.DisplayFor(modelItem => item.Department)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a asp-action="Accept" asp-route-id="@item.Id">Accept</a>
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>

@@ -12,6 +12,7 @@ namespace KolaNaukowe.web.Dtos
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Department { get; set; }
+        public bool ApprovedByAdmin { get; set; }
         public List<Student> Students { get; set; }
         public string OwnerId { get; set; }
     }

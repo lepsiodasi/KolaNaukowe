@@ -77,7 +77,7 @@ namespace KolaNaukowe.web
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMvc();
 
-            services.AddDbContext<KolaNaukoweDbContext>(o => o.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=KolaNaukowe;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<KolaNaukoweDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("MyConnectionString")));
 
             services.AddTransient<IEmailSender, EmailSender>();
 

@@ -53,6 +53,15 @@ namespace KolaNaukowe.web.Controllers
             return View();
         }
 
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult ShowPending()
+        {
+            var model = _studentResearchGroupService.GetAll();
+
+            
+            return View(model.ToList());
+        }
+
 
         [HttpPost]
         public IActionResult Create(StudentResearchGroup newStudentResearchGroup)
@@ -102,6 +111,21 @@ namespace KolaNaukowe.web.Controllers
             return View(studentResearchGroup);
         }
 
+        [HttpPost]
+        
+        public IActionResult Accept(int id, StudentResearchGroup studentGroup)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(ShowPending));
+            }
+            _studentResearchGroupService.Accept(studentGroup);
+            var studentResearchGroup = _studentResearchGroupService.Get(id);
+            return View(studentResearchGroup);
+
+        }
+
         [Authorize(Policy = "AdminOnly")]
         public IActionResult About()
         {
@@ -119,5 +143,7 @@ namespace KolaNaukowe.web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }
