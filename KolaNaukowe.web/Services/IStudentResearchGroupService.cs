@@ -19,5 +19,6 @@ namespace KolaNaukowe.web.Services
         void Remove(int id);
         IEnumerable<StudentResearchGroupDto> FilterByName(IEnumerable<StudentResearchGroupDto> source, string searchString);
         IEnumerable<StudentResearchGroupDto> FilterBySubject(IEnumerable<StudentResearchGroupDto> source, string searchString);
+        void Update(int id, WriteStudentResearchGroupDto studentGroup);
     }
 }
