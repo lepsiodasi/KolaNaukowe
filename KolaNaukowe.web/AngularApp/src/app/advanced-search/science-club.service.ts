@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+// import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 
+import 'rxjs/add/operator/catch';
 export interface IScienceClub {
   id: number;
   name: string;
@@ -46,6 +48,15 @@ export class ScienceClubService {
   }
 
   deleteScienceClub(id: number) {
-    return this.http.delete('http://localhost:50000/api/StudentResearchGroup/' + id);
+    // const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    // const options = new RequestOptions({ headers: cpHeaders });
+    console.log('DELETE');
+    return this.http.delete('http://localhost:50000/api/StudentResearchGroup/Delete/' + id)
+    .subscribe(res => console.log(res));
+  }
+
+  private handleError (error: Response | any) {
+    console.error(error.message || error);
+    return Observable.throw(error.status);
   }
 }

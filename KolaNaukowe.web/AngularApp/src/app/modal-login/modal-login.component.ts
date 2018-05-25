@@ -31,6 +31,9 @@ const hide = true;
 export class ModalLoginDialogComponent {
   hide = true;
   loginAccess: LoginAccess;
+
+  userLogin: any;
+  userPassword: any;
   constructor(
     public dialogRef: MatDialogRef<ModalLoginDialogComponent>,
     private httpService: HttpLoginService) {}
@@ -40,13 +43,16 @@ export class ModalLoginDialogComponent {
   }
 
   login() {
-    this.loginAccess.client_id = 'ResourceOwnerClient';
+    this.userLogin = (<HTMLInputElement>document.getElementById('enteredEmail')).value;
+    console.log('Login ' + this.userLogin);
+    this.httpService.accesToken = 'loggedin';
+    /*this.loginAccess.client_id = 'ResourceOwnerClient';
     this.loginAccess.grant_type = 'password';
     this.loginAccess.username = 'admin@test.com';
     this.loginAccess.password = 'Password1!';
     this.loginAccess.scope = 'StudentResearchGroupAPI';
     this.httpService.login(this.loginAccess).subscribe(data => {
       console.log(data);
-  });
+  });*/
   }
 }

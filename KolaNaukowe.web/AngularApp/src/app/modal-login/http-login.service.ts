@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HttpLoginService {
-  AccesToken: String = '';
+  public accesToken: String = '';
 
   constructor(private http: Http) { }
   private TokenAPI = '';

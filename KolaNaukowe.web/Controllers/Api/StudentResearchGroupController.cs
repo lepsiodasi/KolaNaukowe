@@ -56,10 +56,26 @@ namespace KolaNaukowe.web.Controllers.Api
             return Json(student);
         }
 
-        [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        [HttpDelete("Delete/{id:int}")]
+        public IActionResult Delete(int id)
         {
-            _studentResearchGroupService.Remove(id);
+            try
+            {
+                var group = _studentResearchGroupService.Get(id);
+                if (group == null)
+                {
+                    return NotFound();
+                }
+
+                _studentResearchGroupService.Remove(id);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+            
         }
 
         [HttpPut("{id:int}")]
