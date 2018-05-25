@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using KolaNaukowe.web.Data;
 using KolaNaukowe.web.Dtos;
+using KolaNaukowe.web.Dtos.Api;
 using KolaNaukowe.web.Models;
 using KolaNaukowe.web.Services;
 using Microsoft.AspNetCore.Cors;
@@ -18,12 +20,16 @@ namespace KolaNaukowe.web.Controllers.Api
     public class StudentResearchGroupController : Controller
     {
         private IStudentResearchGroupService _studentResearchGroupService;
+        private ISubjectService _subjectService;
         private KolaNaukoweDbContext _context;
+        private IMapper _mapper;
 
-        public StudentResearchGroupController(IStudentResearchGroupService studentResearchGroupService, KolaNaukoweDbContext context)
+        public StudentResearchGroupController(IStudentResearchGroupService studentResearchGroupService, ISubjectService subjectService, KolaNaukoweDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
             _studentResearchGroupService = studentResearchGroupService;
+            _subjectService = subjectService;
         }
 
         [HttpGet("Test")]
@@ -39,14 +45,15 @@ namespace KolaNaukowe.web.Controllers.Api
             return Json(model);
         }
 
-
+        /*
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             var model = _studentResearchGroupService.GetAll();
             return Json(model);
         }
-        
+        */
+
         [HttpGet("Details/{id:int}")]
         public IActionResult Details(int id)
         {
@@ -61,38 +68,37 @@ namespace KolaNaukowe.web.Controllers.Api
         {
             try
             {
-                var group = _studentResearchGroupService.Get(id);
-                if (group == null)
-                {
-                    return NotFound();
-                }
-
-                _studentResearchGroupService.Remove(id);
-
-                return NoContent();
+                _studentResearchGroupService.Remove(id);         
+                return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, "Internal server error");
-            }
-            
+            }  
         }
 
-        [HttpPut("{id:int}")]
-        public IActionResult Update(int id, [FromBody] StudentResearchGroup studentGroup)
+        [HttpPost("Add")]
+        public IActionResult Insert([FromBody] AddEditStudentResearchGroupDto studentResearchGroup)
         {
-            _studentResearchGroupService.Update(studentGroup);
-            var studentResearchGroup = _studentResearchGroupService.Get(id);
-            if(studentResearchGroup != null)
-                return Ok();
-            else
+
+            _studentResearchGroupService.Add(studentResearchGroup);
+
+            return Ok();
+        }
+
+
+        [HttpPut("Update/{id:int}")]
+        public IActionResult Update(int id, [FromBody] AddEditStudentResearchGroupDto studentResearchGroup)
+        {
+ 
+            var result = _studentResearchGroupService.Update(id, studentResearchGroup);
+
+            if (!result)
+            {
                 return BadRequest();
-        }
+            }
 
-        [HttpPost]
-        public void Insert([FromBody] StudentResearchGroup newStudentResearchGroup)
-        {
-            _studentResearchGroupService.Add(newStudentResearchGroup);
+            return Ok();
         }
     }
 }

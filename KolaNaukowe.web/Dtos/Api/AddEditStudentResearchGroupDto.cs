@@ -1,20 +1,22 @@
-﻿using System;
+﻿using KolaNaukowe.web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KolaNaukowe.web.Models
+namespace KolaNaukowe.web.Dtos.Api
 {
-    public class AddResearchGroupViewModel
+    public class AddEditStudentResearchGroupDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Subject Subject1 { get; set; }
-        public Subject Subject2 { get; set; }
+        public List<SubjectDto> Subjects { get; set; }
+        public List<StudentDto> Students { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Department { get; set; }
         public string Leader { get; set; }
         public string Attendant { get; set; }
         public string Description { get; set; }
+        public int OwnerId { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace KolaNaukowe.web.Repositories
         IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] navigationProperties);
         TEntity Get(Func<TEntity, bool> where, params Expression<Func<TEntity, object>>[] navigationProperties);
         TEntity Add(TEntity item);
-        void Update(TEntity item);
+        bool Update(TEntity item);
         void Remove(int id);
     }
 }

@@ -51,11 +51,6 @@ namespace KolaNaukowe.web.Controllers
 
         public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var student = _studentResearchGroupService.Get(id);
 
             if (student == null)
@@ -70,12 +65,12 @@ namespace KolaNaukowe.web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new AddResearchGroupViewModel());
+            return View(new AddEditResearchGroupViewModel());
         }
 
 
         [HttpPost]
-        public IActionResult Create(AddResearchGroupViewModel model)
+        public IActionResult Create(AddEditResearchGroupViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -83,7 +78,7 @@ namespace KolaNaukowe.web.Controllers
             }
             var researchGroup = new StudentResearchGroup();
 
-            var newStudentResearchGroup = _mapper.Map<AddResearchGroupViewModel, StudentResearchGroup>(model);
+            var newStudentResearchGroup = _mapper.Map<AddEditResearchGroupViewModel, StudentResearchGroup>(model);
 
             newStudentResearchGroup.Subjects.Add(model.Subject1);
             newStudentResearchGroup.Subjects.Add(model.Subject2);
@@ -112,7 +107,6 @@ namespace KolaNaukowe.web.Controllers
 
             _studentResearchGroupService.Remove(id);
             return RedirectToAction("Index", "Home");
-
         }
 
         [Authorize(Policy = "AdminOnly")]
@@ -128,19 +122,22 @@ namespace KolaNaukowe.web.Controllers
         public IActionResult Edit(int id)
         {
             var studentResearchGroup = _studentResearchGroupService.Get(id);
-            var model = _mapper.Map<StudentResearchGroupDto, AddResearchGroupViewModel>(studentResearchGroup);
+            var model = _mapper.Map<StudentResearchGroupDto, AddEditResearchGroupViewModel>(studentResearchGroup);
 
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, AddResearchGroupViewModel model)
+        public IActionResult Edit(int id, AddEditResearchGroupViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Index));
             }
-            var editStudentResearchGroup = _mapper.Map<AddResearchGroupViewModel, StudentResearchGroup>(model);
+            
+            var editStudentResearchGroup = _mapper.Map<AddEditResearchGroupViewModel, StudentResearchGroup>(model);
+
+
             _studentResearchGroupService.Update(editStudentResearchGroup);
             return RedirectToAction("Index", "Home");
 

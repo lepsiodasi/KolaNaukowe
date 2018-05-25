@@ -13,12 +13,15 @@ namespace KolaNaukowe.web.Mappers
             {
                 cfg.CreateMap<StudentResearchGroup, StudentResearchGroupDto>();
                 cfg.CreateMap<StudentResearchGroupDto, StudentResearchGroup>();
-                cfg.CreateMap<StudentResearchGroupDto, AddResearchGroupViewModel>();
+                cfg.CreateMap<StudentResearchGroupDto, AddEditResearchGroupViewModel>();
                 cfg.CreateMap<StudentResearchGroup, WriteStudentResearchGroupDto>();
+                cfg.CreateMap<StudentResearchGroup, AddEditStudentResearchGroupDto>();
                 cfg.CreateMap<StudentResearchGroup, WriteDetailsStudentResearchGroupDto>();
-                cfg.CreateMap<AddResearchGroupViewModel, StudentResearchGroup>();
-                cfg.CreateMap<AddResearchGroupViewModel, StudentResearchGroupDto>();
+                cfg.CreateMap<AddEditResearchGroupViewModel, StudentResearchGroup>();
+                cfg.CreateMap<AddEditResearchGroupViewModel, StudentResearchGroupDto>();
                 cfg.CreateMap<Subject, SubjectDto>();
+                cfg.CreateMap<SubjectDto, Subject>();
+
             }).CreateMapper();
     }
 }

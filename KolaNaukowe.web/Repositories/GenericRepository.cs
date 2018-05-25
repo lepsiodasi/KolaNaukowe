@@ -65,10 +65,11 @@ namespace KolaNaukowe.web.Repositories
             }
         }
 
-        public void Update(TEntity item)
+        public bool Update(TEntity item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
+
+            return _context.SaveChanges() > 0;
         }
     }
 }
