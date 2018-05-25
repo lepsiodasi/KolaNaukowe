@@ -1,28 +1,28 @@
-<p>
-  <br>
-  <br>
-  <br>
-  Id: {{scienceClubId}}
-  <br>
-  Nazwa: {{data.id}}
-  <br>
-  <span>Date : {{data.createdAt | date:'dd/MMM/yyyy'}}</span>
-  Data utworzenia: {{data.createdAt}}
-  <br>
-  Wydział: {{data.department}}
-  <br>
-  Opiekun: {{data.attendant}}
-  <br>
-  Lider: {{data.leader}}
-  <br>
-  Opis: {{data.description}}
-  <br>
-  Tematy:
-  <br>
-</p>
-  <div *ngFor="let subject of data.subjects">
-      Id : {{ subject.id }}
-      <br>
-      Nazwa: {{subject.name}}
-  </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Nazwa: {{data.name}}</h3>
+      </div>
+      <div class="panel-body">
+          Id: {{scienceClubId}}
+          <br>
+          <span>Date : {{data.createdAt | date:'dd/MMM/yyyy'}}</span>
+          <br>
+          <!--Data utworzenia: {{data.createdAt}}-->
+          Wydział: {{data.department}}
+          <br>
+          Opiekun: {{data.attendant}}
+          <br>
+          Lider: {{data.leader}}
+          <br>
+          Opis: {{data.description}}
+          <br>
+          Tematy:
+          <div *ngFor="let subject of data.subjects">
+              <!--Id : {{ subject.id }}-->
+              <br>
+              Nazwa tematu: {{subject.name}}
+          </div>
+      </div>
+</div>
+
 
