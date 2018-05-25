@@ -80,7 +80,7 @@ namespace KolaNaukowe.web.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("StudentResearchGroupId");
+                    b.Property<int>("StudentResearchGroupId");
 
                     b.Property<int>("UserId");
 
@@ -124,11 +124,11 @@ namespace KolaNaukowe.web.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int?>("researchGroupsId");
+                    b.Property<int>("StudentResearchGroupId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("researchGroupsId");
+                    b.HasIndex("StudentResearchGroupId");
 
                     b.ToTable("Subjects");
                 });
@@ -245,14 +245,16 @@ namespace KolaNaukowe.web.Migrations
                 {
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "StudentResearchGroup")
                         .WithMany("Students")
-                        .HasForeignKey("StudentResearchGroupId");
+                        .HasForeignKey("StudentResearchGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
                 {
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "researchGroups")
                         .WithMany("Subjects")
-                        .HasForeignKey("researchGroupsId");
+                        .HasForeignKey("StudentResearchGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

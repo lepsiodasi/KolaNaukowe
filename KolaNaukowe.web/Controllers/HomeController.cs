@@ -9,6 +9,7 @@ using KolaNaukowe.web.Extensions;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IdentityServer4.AccessTokenValidation;
+using AutoMapper;
 
 namespace KolaNaukowe.web.Controllers
 {
@@ -17,14 +18,16 @@ namespace KolaNaukowe.web.Controllers
         private IStudentResearchGroupService _studentResearchGroupService;
         private ISubjectService _subjectService;
         private KolaNaukoweDbContext _context;
+        private IMapper _mapper;
 
-        public HomeController(IStudentResearchGroupService studentResearchGroupService, ISubjectService subjectService, KolaNaukoweDbContext context)
+        public HomeController(IStudentResearchGroupService studentResearchGroupService, ISubjectService subjectService, KolaNaukoweDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
             _studentResearchGroupService = studentResearchGroupService;
             _subjectService = subjectService;
         }
-        
+
         public IActionResult Index(string searchName, string researchGroupSubject)
         {
             var model = _studentResearchGroupService.GetAll();
@@ -39,7 +42,7 @@ namespace KolaNaukowe.web.Controllers
                 model = _studentResearchGroupService.FilterBySubject(model, researchGroupSubject);
             }
             var researchGroupVM = new ResearchGroupViewModel();
-            researchGroupVM.subjects = new SelectList( _studentResearchGroupService.GetAllSubjects().Distinct().ToList());
+            researchGroupVM.subjects = new SelectList(_studentResearchGroupService.GetAllSubjects().Distinct().ToList());
             researchGroupVM.researchGroups = model.ToList();
 
             return View(researchGroupVM);
@@ -63,22 +66,32 @@ namespace KolaNaukowe.web.Controllers
         }
 
         [Authorize(Policy = "LeaderAndAdmin")]
+        [HttpGet]
         public IActionResult Create()
-        {    
-            return View();
+        {
+            return View(new AddResearchGroupViewModel());
         }
 
 
         [HttpPost]
-        public IActionResult Create(StudentResearchGroup newStudentResearchGroup)
+        public IActionResult Create(AddResearchGroupViewModel model)
         {
             if (!ModelState.IsValid)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            var studentResearchGroup = _studentResearchGroupService.Add(newStudentResearchGroup);
-            return View(studentResearchGroup); 
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var researchGroup = new StudentResearchGroup();
+
+            var newStudentResearchGroup = _mapper.Map<AddResearchGroupViewModel, StudentResearchGroup>(model);
+
+            newStudentResearchGroup.Subjects.Add(model.Subject1);
+            newStudentResearchGroup.Subjects.Add(model.Subject2);
+
+            _studentResearchGroupService.Add(newStudentResearchGroup);
+
+            return RedirectToAction("Index", "Home");
         }
+
 
         [HttpPost]
         public IActionResult Delete(int id)
@@ -91,22 +104,26 @@ namespace KolaNaukowe.web.Controllers
 
             var subjects = _context.Subjects.Where(s => s.researchGroups.Id == studentResearchGroup.Id).ToList();
 
-            foreach(var subject in subjects)
+            foreach (var subject in subjects)
             {
                 _subjectService.Remove(subject.Id);
             }
 
             _studentResearchGroupService.Remove(id);
+            return RedirectToAction("Index", "Home");
 
-            return View(studentResearchGroup);
         }
 
         [Authorize(Policy = "AdminOnly")]
+        [HttpGet]
         public IActionResult Delete()
         {
             return View();
         }
+
+
         [Authorize(Policy = "LeaderAndAdmin")]
+        [HttpGet]
         public IActionResult Edit()
         {
             return View();
@@ -114,15 +131,16 @@ namespace KolaNaukowe.web.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int id, StudentResearchGroup studentGroup)
+        public IActionResult Edit(int id, AddResearchGroupViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
-            _studentResearchGroupService.Update(studentGroup);
-            var studentResearchGroup = _studentResearchGroupService.Get(id);
-            return View(studentResearchGroup);
+            var editStudentResearchGroup = _mapper.Map<AddResearchGroupViewModel, StudentResearchGroup>(model);
+            _studentResearchGroupService.Update(editStudentResearchGroup);
+            return RedirectToAction("Index", "Home");
+
         }
 
         [Authorize(Policy = "AdminOnly")]
@@ -134,11 +152,11 @@ namespace KolaNaukowe.web.Controllers
         [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
         public IActionResult Contact()
         {
-      
+
             ViewData["Message"] = "Contact";
             return View();
         }
-        
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

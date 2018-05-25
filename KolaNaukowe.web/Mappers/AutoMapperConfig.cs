@@ -14,6 +14,7 @@ namespace KolaNaukowe.web.Mappers
                 cfg.CreateMap<StudentResearchGroup, StudentResearchGroupDto>();
                 cfg.CreateMap<StudentResearchGroup, WriteStudentResearchGroupDto>();
                 cfg.CreateMap<StudentResearchGroup, WriteDetailsStudentResearchGroupDto>();
+                cfg.CreateMap<AddResearchGroupViewModel, StudentResearchGroup>();
                 cfg.CreateMap<Subject, SubjectDto>();
             }).CreateMapper();
     }

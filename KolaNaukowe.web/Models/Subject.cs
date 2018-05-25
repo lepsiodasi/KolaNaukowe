@@ -13,6 +13,8 @@ namespace KolaNaukowe.web.Models
         [Required]
         public string Name { get; set; }
 
-        public StudentResearchGroup researchGroups { get; set; }
+        public int StudentResearchGroupId { get; set; }
+
+        public virtual StudentResearchGroup researchGroups { get; set; }
     }
 }

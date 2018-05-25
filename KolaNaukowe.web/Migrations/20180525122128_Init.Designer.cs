@@ -11,8 +11,8 @@ using System;
 namespace KolaNaukowe.web.Migrations
 {
     [DbContext(typeof(KolaNaukoweDbContext))]
-    [Migration("20180520174752_Initial")]
-    partial class Initial
+    [Migration("20180525122128_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,7 +81,7 @@ namespace KolaNaukowe.web.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("StudentResearchGroupId");
+                    b.Property<int>("StudentResearchGroupId");
 
                     b.Property<int>("UserId");
 
@@ -125,13 +125,13 @@ namespace KolaNaukowe.web.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int?>("researchGroupsId");
+                    b.Property<int>("StudentResearchGroupId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("researchGroupsId");
+                    b.HasIndex("StudentResearchGroupId");
 
-                    b.ToTable("Subject");
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -246,14 +246,16 @@ namespace KolaNaukowe.web.Migrations
                 {
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "StudentResearchGroup")
                         .WithMany("Students")
-                        .HasForeignKey("StudentResearchGroupId");
+                        .HasForeignKey("StudentResearchGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
                 {
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "researchGroups")
                         .WithMany("Subjects")
-                        .HasForeignKey("researchGroupsId");
+                        .HasForeignKey("StudentResearchGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

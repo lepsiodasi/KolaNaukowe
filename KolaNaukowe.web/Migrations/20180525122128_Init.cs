@@ -181,7 +181,7 @@ namespace KolaNaukowe.web.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    StudentResearchGroupId = table.Column<int>(nullable: true),
+                    StudentResearchGroupId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -202,14 +202,14 @@ namespace KolaNaukowe.web.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
-                    researchGroupsId = table.Column<int>(nullable: true)
+                    StudentResearchGroupId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subjects_StudentResearchGroups_researchGroupsId",
-                        column: x => x.researchGroupsId,
+                        name: "FK_Subjects_StudentResearchGroups_StudentResearchGroupId",
+                        column: x => x.StudentResearchGroupId,
                         principalTable: "StudentResearchGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -260,9 +260,9 @@ namespace KolaNaukowe.web.Migrations
                 column: "StudentResearchGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subjects_researchGroupsId",
+                name: "IX_Subjects_StudentResearchGroupId",
                 table: "Subjects",
-                column: "researchGroupsId");
+                column: "StudentResearchGroupId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
