@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IdentityServer4.AccessTokenValidation;
 using AutoMapper;
+using KolaNaukowe.web.Dtos;
 
 namespace KolaNaukowe.web.Controllers
 {
@@ -124,11 +125,13 @@ namespace KolaNaukowe.web.Controllers
 
         [Authorize(Policy = "LeaderAndAdmin")]
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
-            return View();
-        }
+            var studentResearchGroup = _studentResearchGroupService.Get(id);
+            var model = _mapper.Map<StudentResearchGroupDto, AddResearchGroupViewModel>(studentResearchGroup);
 
+            return View(model);
+        }
 
         [HttpPost]
         public IActionResult Edit(int id, AddResearchGroupViewModel model)

@@ -12,14 +12,14 @@ namespace KolaNaukowe.web.Dtos
         {
             Subjects = new List<Subject>();
         }
-
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string Department { get; set; }
         public List<Student> Students { get; set; }
         public List<Subject> Subjects { get; set; }
+        public string Department { get; set; }
+        public string Leader { get; set; }
+        public string Attendant { get; set; }
         public string Description { get; set; }
-        public string OwnerId { get; set; }
     }
 }
