@@ -81,12 +81,26 @@ namespace KolaNaukowe.web.Controllers.Api
         [HttpPut("{id:int}")]
         public IActionResult Update(int id, [FromBody] StudentResearchGroup studentGroup)
         {
-            _studentResearchGroupService.Update(studentGroup);
-            var studentResearchGroup = _studentResearchGroupService.Get(id);
-            if(studentResearchGroup != null)
-                return Ok();
-            else
-                return BadRequest();
+            try
+            {
+                var group = _studentResearchGroupService.Get(id);
+                if (group == null)
+                {
+                    return NotFound();
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+                group.Name = studentGroup.Name;
+                // to fill 
+                _studentResearchGroupService.Update(studentGroup);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost]

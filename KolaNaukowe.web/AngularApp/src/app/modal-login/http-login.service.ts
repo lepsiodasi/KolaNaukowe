@@ -18,9 +18,15 @@ export class HttpLoginService {
   constructor(private http: Http) { }
   private TokenAPI = '';
 
-  login(loginAccess: LoginAccess): Observable<TokenParams> {
-    // const headersForTokenApi = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+// login(loginAccess: LoginAccess): Observable<TokenParams>
+  login(userName: String, password: String) {
+    const headersForTokenApi = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     // const data = 'grant_type=password&username=' + userName + '&password=' + password;
-    return this.http.post('http://localhost:50000/connect/token', loginAccess).map(res => res.json());
+    // console.log('Client id: ' + loginAccess.client_id);
+    const data = 'client_id=ResourceOwnerClient&grant_type=password&username='
+    + userName + '&password=' + password + '&scope=StudentResearchGroupAPI';
+    // test username: admin@test.com
+    // test password: Password1!
+    return this.http.post('http://localhost:50000/connect/token', data, {headers: headersForTokenApi }).map(res => res.json());
   }
 }
