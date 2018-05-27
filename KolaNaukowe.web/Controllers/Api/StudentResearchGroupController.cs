@@ -81,9 +81,11 @@ namespace KolaNaukowe.web.Controllers.Api
         public IActionResult Insert([FromBody] AddEditStudentResearchGroupDto studentResearchGroup)
         {
 
+
             _studentResearchGroupService.Add(studentResearchGroup);
 
             return Ok();
+
         }
 
 

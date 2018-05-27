@@ -30,7 +30,7 @@ const hide = true;
 })
 export class ModalLoginDialogComponent {
   hide = true;
-  loginAccess: LoginAccess;
+  loginAccess: LoginAccess = {};
 
   userLogin: any;
   userPassword: any;
@@ -44,15 +44,18 @@ export class ModalLoginDialogComponent {
 
   login() {
     this.userLogin = (<HTMLInputElement>document.getElementById('enteredEmail')).value;
-    console.log('Login ' + this.userLogin);
-    this.httpService.accesToken = 'loggedin';
-    /*this.loginAccess.client_id = 'ResourceOwnerClient';
+    this.userPassword = (<HTMLInputElement>document.getElementById('enteredPassword')).value;
+
+    // ----------------------------------------
+    this.loginAccess.client_id = 'ResourceOwnerClient';
     this.loginAccess.grant_type = 'password';
     this.loginAccess.username = 'admin@test.com';
     this.loginAccess.password = 'Password1!';
     this.loginAccess.scope = 'StudentResearchGroupAPI';
-    this.httpService.login(this.loginAccess).subscribe(data => {
+    this.httpService.login(this.userLogin, this.userPassword).subscribe(data => {
+      console.log('Token: ' + data.access_token);
+      this.httpService.accesToken = data.access_token;
       console.log(data);
-  });*/
+  });
   }
 }
