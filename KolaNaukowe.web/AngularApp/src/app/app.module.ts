@@ -16,6 +16,8 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ModalLoginDialogComponent } from './modal-login/modal-login.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { AddScienceClubComponent, AddScienceClubDialogComponent } from './add-science-club/add-science-club.component';
@@ -45,6 +47,8 @@ import { ScienceClubDetailsService } from './science-club-details/science-club-d
     MatSelectModule,
     MatIconModule,
     MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     HttpClientModule,
     HttpModule
   ],

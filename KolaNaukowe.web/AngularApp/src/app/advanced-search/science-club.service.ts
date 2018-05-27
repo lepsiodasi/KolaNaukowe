@@ -5,19 +5,19 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/catch';
 export interface IScienceClub {
-  id: number;
-  name: string;
-  date: string;
-  department: string;
-  attendant: string;
-  leader: string;
-  description: string;
-  subjects: Array<ISubject>;
+  id ?: number;
+  name ?: string;
+  date ?: string;
+  department ?: string;
+  attendant ?: string;
+  leader ?: string;
+  description ?: string;
+  subjects ?: Array<ISubject>;
 }
 
 export interface ISubject {
-  id: number;
-  name: string;
+  id ?: number;
+  name ?: string;
 }
 
 
@@ -40,7 +40,7 @@ export class ScienceClubService {
   }
 
   insertScienceClub(scienceClub: IScienceClub): Observable<IScienceClub> {
-    return this.http.post<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/', scienceClub);
+    return this.http.post<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/Add', scienceClub);
   }
 
   updateScienceClub(id: number, scienceClub: IScienceClub): Observable<void> {

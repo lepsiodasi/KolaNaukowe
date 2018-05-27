@@ -3,26 +3,43 @@
 </h2>
 <mat-dialog-content>
     <mat-form-field>
-        <input matInput placeholder="Podaj nazwę" value>
+        <input matInput placeholder="Podaj nazwę" value id="enteredName">
     </mat-form-field>
     <mat-form-field>
-        <textarea matInput placeholder="Opis"></textarea>
+      <input matInput [matDatepicker]="picker" placeholder="Wybierz datę" id="datePicker"
+      (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Wydziały" [(value)]="selectedDepartment">
+          <mat-option value="Chemiczny">Chemiczny</mat-option>
+          <mat-option value="Elektroniki">Elektroniki</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <h1>{{selectedDepartment}}</h1>
+      <mat-form-field>
+        <input matInput placeholder="Opiekun koła" value id="attendant">
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Wydziały">
-          <mat-option value="option">Chemiczny</mat-option>
-          <mat-option value="option">Elektroniki</mat-option>
-        </mat-select>
+        <input matInput placeholder="Lider" value id="leader">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Opis" id="description"></textarea>
+      </mat-form-field>
+      <h1>Tematy:</h1>
+      <mat-form-field>
+        <input matInput placeholder="Temat" value id="subject">
       </mat-form-field>
 
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close class="btn btn-info">
-    Zamknij
+  <button mat-button mat-dialog-close class="btn btn-info" (click)="addScienceClub()">
+    Dodaj
   </button>
   <button
       class="btn btn-default"
       (click)="closeClick()" [routerLink]="['', {outlets: {addScienceClubModal: null}}]">
-      Dodaj
+      Zamknij
   </button>
 </mat-dialog-actions>

@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
 export interface IScienceClub {
   id: number;
   name: string;
@@ -15,14 +19,14 @@ export interface IScienceClub {
 
 export interface ISubject {
   id: number;
-  name ?: string;
+  name: string;
 }
 
 @Injectable()
-export class ScienceClubDetailsService {
+export class HttpAddScienceClubService {
 
   constructor(private http: HttpClient) { }
-  getDetails(id: number): Observable<IScienceClub> {
-    return this.http.get<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/Details/' + id);
+  insertScienceClub(scienceClub: IScienceClub): Observable<IScienceClub> {
+    return this.http.post<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/Add', scienceClub);
   }
 }
