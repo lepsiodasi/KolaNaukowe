@@ -49,6 +49,7 @@ namespace KolaNaukowe.web.Controllers
             return View(researchGroupVM);
         }
 
+
         public IActionResult Details(int id)
         {
             var student = _studentResearchGroupService.Get(id);
@@ -72,10 +73,11 @@ namespace KolaNaukowe.web.Controllers
         [HttpPost]
         public IActionResult Create(AddEditResearchGroupViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
+
             var researchGroup = new StudentResearchGroup();
 
             var newStudentResearchGroup = _mapper.Map<AddEditResearchGroupViewModel, StudentResearchGroup>(model);
