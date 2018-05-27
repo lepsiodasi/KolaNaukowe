@@ -80,7 +80,7 @@
             <td>
               <!--scienceClubDetails/:id-->
                 <a [routerLink]="['/scienceClubDetails', scienceClub.id ]" routerLinkActive="active" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a>
-                <mat-icon>edit</mat-icon>
+                <a [routerLink]="[{ outlets: { addScienceClubModal: ['addScienceClub'] } }]" routerLinkActive="active"><mat-icon>edit</mat-icon></a>
 
                 <mat-icon (click)='deleteScienceClub(scienceClub.id)'>delete</mat-icon>
               </td>

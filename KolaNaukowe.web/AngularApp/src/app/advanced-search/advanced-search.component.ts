@@ -35,4 +35,8 @@ export class AdvancedSearchComponent implements OnInit {
   deleteScienceClub(id: number) {
     this.deleteScienceClub(id);
   }
+
+  passValues(id: number) {
+  }
+
 }

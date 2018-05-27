@@ -36,15 +36,15 @@ export class ScienceClubService {
   }
 
   getDetails(id: number): Observable<IScienceClub> {
-    return this.http.get<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/');
+    return this.http.get<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/Details/' + id);
   }
 
   insertScienceClub(scienceClub: IScienceClub): Observable<IScienceClub> {
     return this.http.post<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/Add', scienceClub);
   }
 
-  updateScienceClub(id: number, scienceClub: IScienceClub): Observable<void> {
-    return this.http.put<void>('http://localhost:50000/api/StudentResearchGroup/' + id, scienceClub);
+  updateScienceClub(id: number, scienceClub: IScienceClub): Observable<IScienceClub> {
+    return this.http.put<IScienceClub>('http://localhost:50000/api/StudentResearchGroup/Update/' + id, scienceClub);
   }
 
   deleteScienceClub(id: number) {

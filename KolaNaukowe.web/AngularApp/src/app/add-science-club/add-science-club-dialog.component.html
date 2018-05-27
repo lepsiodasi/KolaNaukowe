@@ -6,13 +6,13 @@
         <input matInput placeholder="Podaj nazwę" value id="enteredName">
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Wybierz datę" id="datePicker"
+      <input matInput [matDatepicker]="picker" placeholder="Wybierz datę" id="datePicker" [value]="event"
       (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Wydziały" [(value)]="selectedDepartment">
+        <mat-select placeholder="Wydziały" [(value)]="selectedDepartment" id="departments">
           <mat-option value="Chemiczny">Chemiczny</mat-option>
           <mat-option value="Elektroniki">Elektroniki</mat-option>
         </mat-select>
@@ -37,6 +37,7 @@
   <button mat-button mat-dialog-close class="btn btn-info" (click)="addScienceClub()">
     Dodaj
   </button>
+  <button class="btn btn-info" (click)="updateScienceClub()">Zmień</button>
   <button
       class="btn btn-default"
       (click)="closeClick()" [routerLink]="['', {outlets: {addScienceClubModal: null}}]">
