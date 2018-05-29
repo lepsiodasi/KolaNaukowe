@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,18 +10,22 @@ namespace KolaNaukowe.web.Models
 {
     public class StudentResearchGroup
     {
+        public StudentResearchGroup()
+        {
+            Subjects = new List<Subject>();
+        }
+
         [Key]
         public int Id { get; set; }
-
         [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Department { get; set; }
-        public bool ApprovedByAdmin { get; set; } = false;
-        public IEnumerable<Student> Students { get; set; }
-
-        // user ID from AspNetUser table.
+        public List<Student> Students { get; set; }
+        public List<Subject> Subjects { get; set; }
+        public string Leader { get; set; }
+        public string Attendant { get; set; }
+        public string Description { get; set; }
         public string OwnerId { get; set; }
-
     }
 }

@@ -1,5 +1,4 @@
-﻿@using KolaNaukowe.web.Helpers
-@using KolaNaukowe.web.Views.Manage
+﻿@using KolaNaukowe.web.Views.Manage
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

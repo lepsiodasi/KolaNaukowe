@@ -11,6 +11,5 @@ namespace KolaNaukowe.web.Services
         StudentDto Add(Student item);
         void Update(Student item);
         void Remove(int id);
-        
     }
 }

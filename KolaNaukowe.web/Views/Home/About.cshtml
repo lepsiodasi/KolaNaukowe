@@ -6,16 +6,6 @@
 <h3>@ViewData["Message"]</h3>
 
 <p>
-    <dl>
-    @foreach (var claim in User.Claims)
-    {
-        <dt>@claim.Type</dt>
-        <dd>@claim.Value</dd>
-    }
-</dl>
-    <dt>access token</dt>
-    <dd>@await ViewContext.HttpContext.GetTokenAsync("access_token")</dd>
-
-    <dt>refresh token</dt>
-    <dd>@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</dd>
+    <h4>Projekt Koła Naukowe</h4>
+    <p>Projekt zespołowy we współpracy z firmą PGS Software</p>
     </p>

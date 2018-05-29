@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace KolaNaukowe.web.Migrations
 {
-    public partial class Init : Migration
+    public partial class AzureInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,8 +54,11 @@ namespace KolaNaukowe.web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Attendant = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     Department = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Leader = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 50, nullable: true),
                     OwnerId = table.Column<string>(nullable: true)
                 },
@@ -178,7 +181,7 @@ namespace KolaNaukowe.web.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    StudentResearchGroupId = table.Column<int>(nullable: true),
+                    StudentResearchGroupId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -189,7 +192,27 @@ namespace KolaNaukowe.web.Migrations
                         column: x => x.StudentResearchGroupId,
                         principalTable: "StudentResearchGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    StudentResearchGroupId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subjects_StudentResearchGroups_StudentResearchGroupId",
+                        column: x => x.StudentResearchGroupId,
+                        principalTable: "StudentResearchGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -235,6 +258,11 @@ namespace KolaNaukowe.web.Migrations
                 name: "IX_Students_StudentResearchGroupId",
                 table: "Students",
                 column: "StudentResearchGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_StudentResearchGroupId",
+                table: "Subjects",
+                column: "StudentResearchGroupId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -256,6 +284,9 @@ namespace KolaNaukowe.web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

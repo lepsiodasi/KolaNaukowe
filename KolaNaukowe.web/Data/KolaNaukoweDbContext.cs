@@ -16,5 +16,7 @@ namespace KolaNaukowe.web.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<StudentResearchGroup> StudentResearchGroups { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+
     }
 }

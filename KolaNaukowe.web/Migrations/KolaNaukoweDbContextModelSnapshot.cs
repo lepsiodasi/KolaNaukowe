@@ -80,7 +80,7 @@ namespace KolaNaukowe.web.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("StudentResearchGroupId");
+                    b.Property<int>("StudentResearchGroupId");
 
                     b.Property<int>("UserId");
 
@@ -96,11 +96,15 @@ namespace KolaNaukowe.web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("ApprovedByAdmin");
+                    b.Property<string>("Attendant");
 
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Department");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Leader");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50);
@@ -110,6 +114,23 @@ namespace KolaNaukowe.web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StudentResearchGroups");
+                });
+
+            modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("StudentResearchGroupId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentResearchGroupId");
+
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -224,7 +245,16 @@ namespace KolaNaukowe.web.Migrations
                 {
                     b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "StudentResearchGroup")
                         .WithMany("Students")
-                        .HasForeignKey("StudentResearchGroupId");
+                        .HasForeignKey("StudentResearchGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("KolaNaukowe.web.Models.Subject", b =>
+                {
+                    b.HasOne("KolaNaukowe.web.Models.StudentResearchGroup", "researchGroups")
+                        .WithMany("Subjects")
+                        .HasForeignKey("StudentResearchGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,32 +1,68 @@
+import { HttpLoginService } from './modal-login/http-login.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import { ScienceClubService } from './advanced-search/science-club.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ModalLoginDialogComponent } from './modal-login/modal-login.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
+import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { AddScienceClubComponent, AddScienceClubDialogComponent } from './add-science-club/add-science-club.component';
+import { ScienceClubDetailsComponent } from './science-club-details/science-club-details.component';
+import { ScienceClubDetailsService } from './science-club-details/science-club-details.service';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AdvancedSearchComponent,
     ModalLoginComponent,
-    ModalLoginDialogComponent
+    ModalLoginDialogComponent,
+    AddScienceClubComponent,
+    AddScienceClubDialogComponent,
+    ScienceClubDetailsComponent
+  ],
+  exports: [
+    MatIconModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    HttpClientModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [
+    ScienceClubService,
+    ScienceClubDetailsService,
+    HttpLoginService,
+  {
+    provide: MatDialogRef,
+    useValue: {
+    close: (dialogResult: any) => { }}
+  }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalLoginComponent, ModalLoginDialogComponent]
+  entryComponents: [ModalLoginComponent, ModalLoginDialogComponent,
+    AddScienceClubComponent, AddScienceClubDialogComponent]
 })
 export class AppModule { }

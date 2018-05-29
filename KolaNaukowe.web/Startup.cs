@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using System.IdentityModel.Tokens.Jwt;
 using KolaNaukowe.web.Repositories;
 using KolaNaukowe.web.Mappers;
+using IdentityServer4.AccessTokenValidation;
 
 namespace KolaNaukowe.web
 {
@@ -44,20 +45,48 @@ namespace KolaNaukowe.web
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddInMemoryPersistedGrants()
-                .AddInMemoryIdentityResources(Config.identityResources)
-                .AddInMemoryClients(Config.Clients)
-                .AddInMemoryApiResources(Config.Apis)
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryApiResources(Config.GetApiResources())
                 .AddAspNetIdentity<ApplicationUser>();
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+                // Lockout settings.
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(1);
+            });
 
-            services.AddAuthentication()
-                  .AddJwtBearer(jwt =>
-                  {
-                      jwt.Authority = "http://localhost:5000";
-                      jwt.RequireHttpsMetadata = false;
-                      jwt.Audience = "StudentResearchGroupAPI";
-                  });
+            if (Enviroment.IsProduction())
+            {
+                services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                    .AddIdentityServerAuthentication(options =>
+                    {
+                        //Production website link
+                        options.Authority = "";
+                        options.RequireHttpsMetadata = false;
+
+                        options.ApiName = "StudentResearchGroupAPI";
+                    });
+            }
+            else
+            {
+                services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                    .AddIdentityServerAuthentication(options =>
+                    {
+                        options.Authority = "http://localhost:5000/";
+                        options.RequireHttpsMetadata = false;
+
+                        options.ApiName = "StudentResearchGroupAPI";
+                    });
+            }
 
 
             services.AddAuthorization(options =>
@@ -71,15 +100,30 @@ namespace KolaNaukowe.web
 
             services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
             services.AddScoped<IStudentResearchGroupService, StudentResearchGroupService>();
+            services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<IGenericRepository<StudentResearchGroup>, GenericRepository<StudentResearchGroup>>();
             services.AddScoped<IGenericRepository<Student>, GenericRepository<Student>>();
+            services.AddScoped<IGenericRepository<Subject>, GenericRepository<Subject>>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ProducesAttribute("application/json"));
+            });
+             //Add WebApi
 
-            services.AddDbContext<KolaNaukoweDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("MyConnectionString")));
+            services.AddDbContext<KolaNaukoweDbContext>(o => o.UseSqlServer(@"Data Source=tcp:kolanaukowedbserver.database.windows.net,1433;Initial Catalog=KolaNaukoweDB;Integrated Security=False;User Id=ProjectUser@kolanaukowedbserver;Password=ProjectPassword1!;Encrypt=True;TrustServerCertificate=False;MultipleActiveResultSets=True"));
 
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
         }
 
@@ -101,12 +145,22 @@ namespace KolaNaukowe.web
 
             app.UseIdentityServer();
 
+            app.UseCors("CorsPolicy");
+
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
+            routes.MapRoute(
+             name: "StudentResearchGroupController",
+             template: "api/{controller}/{action}/{id?}",
+            defaults: new { controller = "StudentResearchGroup", action = "GetAll" });
+
+            routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                  // defaults: new { controller = "Home", action = "PageOne" });
             });
+
+            
         }
     }
 }

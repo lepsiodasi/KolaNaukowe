@@ -6,38 +6,51 @@ using Microsoft.AspNetCore.Authorization;
 using KolaNaukowe.web.Services;
 using System.Linq;
 using KolaNaukowe.web.Extensions;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using IdentityServer4.AccessTokenValidation;
+using AutoMapper;
+using KolaNaukowe.web.Dtos;
 
 namespace KolaNaukowe.web.Controllers
 {
     public class HomeController : Controller
     {
         private IStudentResearchGroupService _studentResearchGroupService;
+        private ISubjectService _subjectService;
         private KolaNaukoweDbContext _context;
+        private IMapper _mapper;
 
-        public HomeController(IStudentResearchGroupService studentResearchGroupService, KolaNaukoweDbContext context)
+        public HomeController(IStudentResearchGroupService studentResearchGroupService, ISubjectService subjectService, KolaNaukoweDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
             _studentResearchGroupService = studentResearchGroupService;
+            _subjectService = subjectService;
         }
-        
-        public IActionResult Index(string searchString)
+
+        public IActionResult Index(string searchName, string researchGroupSubject)
         {
             var model = _studentResearchGroupService.GetAll();
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchName))
             {
-                model = _studentResearchGroupService.Filter(searchString);
+                model = _studentResearchGroupService.FilterByName(model, searchName);
             }
-            return View(model.ToList());
+
+            if (!string.IsNullOrEmpty(researchGroupSubject))
+            {
+                model = _studentResearchGroupService.FilterBySubject(model, researchGroupSubject);
+            }
+            var researchGroupVM = new ResearchGroupViewModel();
+            researchGroupVM.subjects = new SelectList(_studentResearchGroupService.GetAllSubjects().Distinct().ToList());
+            researchGroupVM.researchGroups = model.ToList();
+
+            return View(researchGroupVM);
         }
 
         public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var student = _studentResearchGroupService.Get(id);
 
             if (student == null)
@@ -47,82 +60,86 @@ namespace KolaNaukowe.web.Controllers
 
             return View(student);
         }
-        [Authorize(Policy = "AdminOnly")]
+
+        [Authorize(Policy = "LeaderAndAdmin")]
+        [HttpGet]
         public IActionResult Create()
-        {    
-            return View();
-        }
-
-        [Authorize(Policy = "AdminOnly")]
-        public IActionResult ShowPending()
         {
-            var model = _studentResearchGroupService.GetAll();
-
-            
-            return View(model.ToList());
+            return View(new AddEditResearchGroupViewModel());
         }
 
 
         [HttpPost]
-        public IActionResult Create(StudentResearchGroup newStudentResearchGroup)
+        public IActionResult Create(AddEditResearchGroupViewModel model)
         {
             if (!ModelState.IsValid)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            var studentResearchGroup = _studentResearchGroupService.Add(newStudentResearchGroup);
-            return View(studentResearchGroup); 
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var researchGroup = new StudentResearchGroup();
+
+            var newStudentResearchGroup = _mapper.Map<AddEditResearchGroupViewModel, StudentResearchGroup>(model);
+
+            newStudentResearchGroup.Subjects.Add(model.Subject1);
+            newStudentResearchGroup.Subjects.Add(model.Subject2);
+
+            _studentResearchGroupService.Add(newStudentResearchGroup);
+
+            return RedirectToAction("Index", "Home");
         }
 
+
         [HttpPost]
-        public IActionResult Delete(int id, StudentResearchGroup newStudentResearchGroup)
+        public IActionResult Delete(int id)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Index));
             }
             var studentResearchGroup = _studentResearchGroupService.Get(id);
-            _studentResearchGroupService.Remove(id);
 
-            return View(studentResearchGroup);
+            var subjects = _context.Subjects.Where(s => s.researchGroups.Id == studentResearchGroup.Id).ToList();
+
+            foreach (var subject in subjects)
+            {
+                _subjectService.Remove(subject.Id);
+            }
+
+            _studentResearchGroupService.Remove(id);
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize(Policy = "AdminOnly")]
+        [HttpGet]
         public IActionResult Delete()
         {
             return View();
         }
+
+
         [Authorize(Policy = "LeaderAndAdmin")]
-        public IActionResult Edit()
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            return View();
-        }
-
-
-        [HttpPost]
-        public IActionResult Edit(int id, StudentResearchGroup studentGroup)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            _studentResearchGroupService.Update(studentGroup);
             var studentResearchGroup = _studentResearchGroupService.Get(id);
-            return View(studentResearchGroup);
+            var model = _mapper.Map<StudentResearchGroupDto, AddEditResearchGroupViewModel>(studentResearchGroup);
+
+            return View(model);
         }
 
         [HttpPost]
-        
-        public IActionResult Accept(int id, StudentResearchGroup studentGroup)
+        public IActionResult Edit(int id, AddEditResearchGroupViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(ShowPending));
+                return RedirectToAction(nameof(Index));
             }
-            _studentResearchGroupService.Accept(studentGroup);
-            var studentResearchGroup = _studentResearchGroupService.Get(id);
-            return View(studentResearchGroup);
+            
+            var editStudentResearchGroup = _mapper.Map<AddEditResearchGroupViewModel, StudentResearchGroup>(model);
+
+
+            _studentResearchGroupService.Update(editStudentResearchGroup);
+            return RedirectToAction("Index", "Home");
 
         }
 
@@ -132,18 +149,17 @@ namespace KolaNaukowe.web.Controllers
             ViewData["Message"] = "Your application description page.";
             return View();
         }
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
         public IActionResult Contact()
         {
-      
+
             ViewData["Message"] = "Contact";
             return View();
         }
-        
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        
     }
 }
