@@ -74,14 +74,16 @@ namespace KolaNaukowe.web.Data
 
             var studentGroups = new StudentResearchGroup[]
             {
-            new StudentResearchGroup{Name="EKA.NET",CreatedAt=DateTime.UtcNow,Department = "Elektroniki",
-                OwnerId = leaderID, Leader = "Adam Pierwszy", Attendant = "Jacek Małolepszy", Description = "Koło naukowe programistów", Subjects = new List<Subject>{ new Subject {Name = "C#" }, new Subject { Name = "Programowanie" } } },
-            new StudentResearchGroup{Name="PIAST.NET",CreatedAt=DateTime.UtcNow,Department = "Informatyki i Zarzadzania",
-                OwnerId = leaderID, Leader = "Kamil Drugi", Attendant = "Fryderyk Kowalski", Description = "Koło naukowe programistów", Subjects = new List<Subject>{ new Subject {Name = "C#" }, new Subject { Name = ".NET" }}},
-            new StudentResearchGroup{Name="NEW.NET",CreatedAt=DateTime.UtcNow, Department = "Mechaniczny",
-                OwnerId = leaderID, Leader = "Adam Trzeci", Attendant = "Jan Nowak", Description = "Koło naukowe mechaników", Subjects = new List<Subject>{ new Subject {Name = "Projektowanie maszyn" }, new Subject { Name = ".NET" } } },
-            new StudentResearchGroup{Name="COS.NET",CreatedAt=DateTime.UtcNow, Department = "Elektryczny",
-                OwnerId = leaderID, Leader = "Michał Czwarty", Attendant = "Pedro", Description = "Koło naukowe elektryków", Subjects = new List<Subject>{new Subject {Name = "Robotyka" }, new Subject { Name = "Przyroda" } } },
+            new StudentResearchGroup{Name="KoloNaukowePierwsze",CreatedAt=DateTime.UtcNow,Department = "Elektroniki",
+                OwnerId = leaderID, Leader = "Jan Kowalski", Attendant = "Adam Nowak", Description = "Opis koła naukowego #1", Subjects = new List<Subject>{ new Subject {Name = "C#" }, new Subject { Name = "Programowanie" } } },
+            new StudentResearchGroup{Name="KoloNaukoweDrugie",CreatedAt=DateTime.UtcNow,Department = "Mechaniczny",
+                OwnerId = leaderID, Leader = "Adam Nowak", Attendant = "Jan Kowalski", Description = "Opis koła naukowego #2", Subjects = new List<Subject>{ new Subject {Name = "Pojazdy mobilne" }, new Subject { Name = "Mechanika" } } },
+            new StudentResearchGroup{Name="KoloNaukoweTrzecie",CreatedAt=DateTime.UtcNow,Department = "Chemiczny",
+                OwnerId = leaderID, Leader = "Adam Piątek", Attendant = "Jan Nowak", Description = "Opis koła naukowego #3", Subjects = new List<Subject>{ new Subject {Name = "Tworzywa sztuczne" }, new Subject { Name = "Chemia" } } },
+            new StudentResearchGroup{Name="KoloNaukoweCzwarte",CreatedAt=DateTime.UtcNow,Department = "Architektury",
+                OwnerId = leaderID, Leader = "Adam Kowalski", Attendant = "Adam Piątek", Description = "Opis koła naukowego #4", Subjects = new List<Subject>{ new Subject {Name = "Mosty" }, new Subject { Name = "Hotele" } } },
+            new StudentResearchGroup{Name="KoloNaukowePiąte",CreatedAt=DateTime.UtcNow,Department = "Energetyczny",
+                OwnerId = leaderID, Leader = "Witold Nowak", Attendant = "Adam Kowalski", Description = "Opis koła naukowego #5", Subjects = new List<Subject>{ new Subject {Name = "Energie Odnawialne" }, new Subject { Name = "Energetyka jądrowa" } } },
             };
 
             foreach (StudentResearchGroup s in studentGroups)

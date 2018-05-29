@@ -143,19 +143,11 @@ namespace KolaNaukowe.web.Controllers
 
         }
 
-        [Authorize(Policy = "AdminOnly")]
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
             return View();
         }
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
-        public IActionResult Contact()
-        {
 
-            ViewData["Message"] = "Contact";
-            return View();
-        }
 
         public IActionResult Error()
         {
