@@ -14,8 +14,8 @@ import { LoginAccess } from './login-access';
 export class ModalLoginComponent implements OnInit {
   constructor(public dialog: MatDialog, private router: Router) {
     const dialogRef = this.dialog.open(ModalLoginDialogComponent , {
-      width: '380px',
-      height: '310px'
+      width: '320px',
+      height: '280px'
     });
     this.router.navigate([{ outlets: { loginModal: null }}]);
   }

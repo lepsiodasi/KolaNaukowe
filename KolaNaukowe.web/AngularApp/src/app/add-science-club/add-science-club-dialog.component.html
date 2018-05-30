@@ -1,4 +1,7 @@
+
+
 <h2 mat-dialog-title>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeClick()" >&times;</button>
   Dodaj nowe koło naukowe
 </h2>
 <mat-dialog-content>
@@ -15,9 +18,11 @@
         <mat-select placeholder="Wydziały" [(value)]="selectedDepartment" id="departments">
           <mat-option value="Chemiczny">Chemiczny</mat-option>
           <mat-option value="Elektroniki">Elektroniki</mat-option>
+          <mat-option value="Architektury">Architektury</mat-option>
+          <mat-option value="Elektroniki">Mechaniczny</mat-option>
+          <mat-option value="Elektroniki">Energetyczny</mat-option>
         </mat-select>
       </mat-form-field>
-      <h1>{{selectedDepartment}}</h1>
       <mat-form-field>
         <input matInput placeholder="Opiekun koła" value id="attendant">
       </mat-form-field>
@@ -27,17 +32,16 @@
       <mat-form-field>
         <textarea matInput placeholder="Opis" id="description"></textarea>
       </mat-form-field>
-      <h1>Tematy:</h1>
       <mat-form-field>
         <input matInput placeholder="Temat" value id="subject">
       </mat-form-field>
 
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close class="btn btn-info" (click)="addScienceClub()">
+  <button mat-button mat-dialog-close class="btn btn-info" *ngIf="isNewScienceClub"  (click)="addScienceClub()">
     Dodaj
   </button>
-  <button class="btn btn-info" (click)="updateScienceClub()">Zmień</button>
+  <button class="btn btn-info" *ngIf="!isNewScienceClub"  (click)="updateScienceClub()">Zmień</button>
   <button
       class="btn btn-default"
       (click)="closeClick()" [routerLink]="['', {outlets: {addScienceClubModal: null}}]">

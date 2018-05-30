@@ -10,6 +10,7 @@ import { ScienceClubService } from './science-club.service';
 export class AdvancedSearchComponent implements OnInit {
   testText: String = 'cos';
   data: any;
+  public id: number;
   constructor(private httpService: ScienceClubService) { }
 
   ngOnInit() {
@@ -37,6 +38,7 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   passValues(id: number) {
+    this.id = id;
   }
 
 }

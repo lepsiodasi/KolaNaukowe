@@ -92,12 +92,11 @@
 		<div>
         <ul class="nav navbar-nav">
 
-
             <li><a [routerLink]="['advancedSearch']">Wyszukaj</a></li>
         </ul>
-
+        <!--hidden-->
         <div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
+            <form class="navbar-form" role="search" *ngIf="false">
             <div class="input-group">
                 <input type="text" class="form-control" name="q">
                 <div class="input-group-btn">
@@ -113,7 +112,7 @@
 
         <li class="nav-item dropdown" *ngIf="checkToken()">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"> {{userName}} <b class="caret"></b></a>
-            <div class="dropdown-content">
+            <div class="dropdown-content" *ngIf="false" >
               <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profil</a></li>
               <li><a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Zarządzaj</a></li>
               <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ustawienia</a></li>
@@ -131,13 +130,11 @@
 
 <div >
 <!-- do poprawienia! -->
-<li></li>
-<li></li>
-<li></li>
+<br>
+<br>
+<br>
 <router-outlet></router-outlet>
 <router-outlet name="loginModal"></router-outlet>
-<!--
-<router-outlet name="loginModal"></router-outlet>-->
   </div>
 
 

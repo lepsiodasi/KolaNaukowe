@@ -1,23 +1,26 @@
+import { AdvancedSearchComponent } from './../advanced-search/advanced-search.component';
 import { ScienceClubService, IScienceClub, ISubject } from './../advanced-search/science-club.service';
 
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Router } from '@angular/router';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+
 @Component({
   selector: 'app-add-science-club',
   templateUrl: './add-science-club.component.html',
   styleUrls: ['./add-science-club.component.css']
 })
 export class AddScienceClubComponent implements OnInit {
-  id = 5;
-  constructor( public dialog: MatDialog, private router: Router) {
+  id = 0;
+  constructor( public dialog: MatDialog, private router: Router, private searchComponent: AdvancedSearchComponent) {
+  this.id = searchComponent.id;
+  console.log('Passed id:' + this.id);
     const dialogRef = this.dialog.open(AddScienceClubDialogComponent , {
       width: '300px',
       height: '500px',
       data: { number: this.id }
     });
-// dialogRef.id =
     this.router.navigate(['/advancedSearch']);
   }
   ngOnInit() {
@@ -28,18 +31,14 @@ export class AddScienceClubComponent implements OnInit {
   selector: 'app-add-science-club-dialog',
   templateUrl: './add-science-club-dialog.component.html'
 })
-export class AddScienceClubDialogComponent {
+export class AddScienceClubDialogComponent implements OnInit{
   selectedDepartment = 'option2';
   constructor(
   private httpService: ScienceClubService,
   public dialogRef: MatDialogRef<AddScienceClubDialogComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.id = 0; // data.id;
-    console.log('id: ' + this.id);
-    if (this.id > 0) {
-      this.getDetails(this.id);
-    }
   }
+
   events: string[] = [];
   event = '';
   scienceClub: IScienceClub = {};
@@ -47,6 +46,16 @@ export class AddScienceClubDialogComponent {
   arrayOfSubjects: Array<ISubject> = [];
   public id: number;
   value ?: number;
+  isNewScienceClub = false;
+
+  ngOnInit() {
+    this.id = this.data.number;
+    if (this.id > 0) {
+      this.getDetails(this.id);
+    } else {
+      this.isNewScienceClub = true;
+    }
+  }
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);

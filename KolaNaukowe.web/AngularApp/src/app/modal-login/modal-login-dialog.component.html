@@ -1,5 +1,9 @@
+
+
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeClick()">&times;</button>
+
 <mat-dialog-content>
-  <div class="example-container">
+  <div class="example-container" style="text-align:center">
       <mat-tab-group>
           <mat-tab label="Logowanie">
               <mat-form-field>
@@ -11,7 +15,7 @@
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                 </mat-form-field>
           </mat-tab>
-          <mat-tab label="Rejestracja">
+          <mat-tab label="Rejestracja" *ngIf="false" >
               <mat-form-field>
                   <input matInput placeholder="E-mail" value>
                   <mat-icon matSuffix>email</mat-icon>
@@ -30,6 +34,6 @@
 </mat-dialog-content>
 <div mat-dialog-actions>
   <button mat-button (click)="closeClick()" class="btn btn-info">Zamknij</button>
-  <button mat-button (click)="login()" class="btn btn-info">Testowe logowanie</button>
+  <button mat-button (click)="login()" class="btn btn-info">Logowanie</button>
 </div>
 
